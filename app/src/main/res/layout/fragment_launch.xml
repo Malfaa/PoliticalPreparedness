@@ -22,7 +22,7 @@
             android:contentDescription="@string/image_ballot_description" />
 
         <Button
-            android:id="@+id/upcoming_elections"
+            android:id="@+id/upcomingButton"
             android:text="@string/upcoming_elect"
             android:background="@color/colorPrimary"
             android:textColor="@color/white"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"/>
 
         <Button
-            android:id="@+id/find_my_representatives"
+            android:id="@+id/representativeButton"
             android:text="@string/find_representatives"
             android:background="@color/colorPrimary"
             android:textColor="@color/white"
