@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">Political Preparedness</string>
 
-    <!-- TODO: Add necessary string values -->
+    <string name="upcoming_elect">Upcoming Elections</string>
+    <string name="saved_elect">Saved Elections</string>
+    <string name="find_representatives">Find My Representatives</string>
 
+    <string name="image_ballot_description">A person voting</string>
 </resources>

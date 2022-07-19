@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
 import java.util.Locale
 
@@ -16,13 +17,17 @@ class DetailFragment : Fragment() {
         //TODO: Add Constant for Location request
     }
 
+    lateinit var binding: FragmentRepresentativeBinding
+
     //TODO: Declare ViewModel
+    lateinit var viewModel: RepresentativeViewModel
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         //TODO: Establish bindings
+        FragmentRepresentativeBinding.inflate(inflater,container,false)
 
         //TODO: Define and assign Representative adapter
 

@@ -2,6 +2,11 @@
 <resources>
     <dimen name="default_padding">8dp</dimen>
 
-    <!-- TODO: Add necessary dimension values -->s
+    <dimen name="header_margin">20dp</dimen>
+    <dimen name="rv_padding">14dp</dimen>
+    <dimen name="rv_margin">16dp</dimen>
 
+    <dimen name="button_main_margin">16dp</dimen>
+
+    <dimen name="image_margin">50dp</dimen>
 </resources>

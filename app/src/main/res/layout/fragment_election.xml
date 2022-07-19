@@ -3,16 +3,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Add node to connect Election ViewModel -->
+<!-- todo essa variável sem comando-->
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.android.politicalpreparedness.election.ElectionsViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
 
-        <!-- TODO: Add Upcoming Election Recycler and Header -->
+        <TextView
+            android:id="@+id/header_upcoming_election"
+            style="@style/Header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/header_margin"
+            android:text="@string/upcoming_elect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TODO: Add Saved Election Recycler and Header -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/upcoming_election_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/rv_margin"
+            android:minHeight="250dp"
+            android:padding="@dimen/rv_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_upcoming_election" />
+
+        <TextView
+            android:id="@+id/header_saved_election"
+            style="@style/Header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/rv_margin"
+            android:text="@string/saved_elect"
+            app:layout_constraintEnd_toEndOf="@+id/header_upcoming_election"
+            app:layout_constraintStart_toStartOf="@+id/header_upcoming_election"
+            app:layout_constraintTop_toBottomOf="@+id/upcoming_election_rv" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/saved_election_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/rv_margin"
+            android:layout_marginBottom="@dimen/rv_margin"
+            android:padding="@dimen/rv_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_saved_election" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
