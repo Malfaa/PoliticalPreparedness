@@ -6,15 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.politicalpreparedness.network.models.Election
 
-//TODO: Construct ViewModel and provide election datasource
+
 class ElectionsViewModel(application: Application): ViewModel() {
 
-    //TODO: Create live data val for upcoming elections
+    //upcoming elections
     private val _upcomingElections = MutableLiveData<Election>()
     val upcomingElections : LiveData<Election>
         get() = _upcomingElections
 
-    //TODO: Create live data val for saved elections
+    //saved elections
     private val _savedElections = MutableLiveData<Election>()
     val savedElections : LiveData<Election>
         get() = _upcomingElections
@@ -23,6 +23,8 @@ class ElectionsViewModel(application: Application): ViewModel() {
 
 
     //TODO: Create functions to navigate to saved or upcoming election voter info
+    fun navigateTo(){
 
+    }
 
 }

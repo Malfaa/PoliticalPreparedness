@@ -1,7 +1,8 @@
-package com.example.android.politicalpreparedness.database
+package com.example.android.politicalpreparedness.database.election
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.android.politicalpreparedness.Constants
 import com.example.android.politicalpreparedness.network.models.Election
 
 @Dao
@@ -10,10 +11,10 @@ interface ElectionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAll(election: List<Election>)
 
-    @Query("SELECT * FROM election_table")
+    @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION}")
     fun selectAllElection(): LiveData<List<Election>>
 
-    @Query("SELECT * FROM election_table WHERE id = :id")
+    @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION} WHERE id = :id")
     fun selectSingle(id:Int): LiveData<Election>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -22,6 +23,6 @@ interface ElectionDao {
     @Delete
     suspend fun deleteElection(election: Election)
 
-    @Query("DELETE FROM election_table")
+    @Query("DELETE FROM ${Constants.TABLE_NAME_ELECTION}")
     suspend fun clear()
 }

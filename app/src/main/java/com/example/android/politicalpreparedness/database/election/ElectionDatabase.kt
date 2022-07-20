@@ -1,11 +1,15 @@
-package com.example.android.politicalpreparedness.database
+package com.example.android.politicalpreparedness.database.election
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.android.politicalpreparedness.Constants
+import com.example.android.politicalpreparedness.database.Converters
 import com.example.android.politicalpreparedness.network.models.Election
+
+//USING AS CACHE
 
 @Database(entities = [Election::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
@@ -25,18 +29,16 @@ abstract class ElectionDatabase: RoomDatabase() {
                     instance = Room.databaseBuilder(
                             context.applicationContext,
                             ElectionDatabase::class.java,
-                            "election_database"
+                            Constants.TABLE_NAME_ELECTION
                     )
                             .fallbackToDestructiveMigration()
                             .build()
 
                     INSTANCE = instance
                 }
-
                 return instance
             }
         }
 
     }
-
 }

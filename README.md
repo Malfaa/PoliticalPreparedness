@@ -27,7 +27,7 @@ To get started with this project, simply pull the repository and import the proj
 
 * For the most part, the TODOs in the project will guide you through getting the project completed. There is a general package architecture and *most* files are present. 
 * Hints are provided for tricky parts of the application that may extend beyond basic Android development skills.
-* As databinding is integral to the project architecture, it is important to be familiar with the IDE features such s cleaning and rebuilding the project as well as invalidating caches. 
+* As databinding is integral to the project architecture, it is important to be familiar with the IDE features such as cleaning and rebuilding the project as well as invalidating caches. 
 
 ## Suggested Workflow
 

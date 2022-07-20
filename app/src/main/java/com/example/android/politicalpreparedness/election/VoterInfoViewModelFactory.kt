@@ -2,7 +2,7 @@ package com.example.android.politicalpreparedness.election
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.android.politicalpreparedness.database.ElectionDao
+import com.example.android.politicalpreparedness.database.election.ElectionDao
 
 
 class VoterInfoViewModelFactory(val dao: ElectionDao): ViewModelProvider.Factory {

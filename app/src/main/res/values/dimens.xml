@@ -9,4 +9,6 @@
     <dimen name="button_main_margin">16dp</dimen>
 
     <dimen name="image_margin">50dp</dimen>
+
+    <dimen name="election_dim_list">8dp</dimen>
 </resources>
