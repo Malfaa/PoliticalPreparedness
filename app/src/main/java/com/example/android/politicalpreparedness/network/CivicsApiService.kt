@@ -75,14 +75,14 @@ object CivicsApi {
     }
 
     //getElections
-    suspend fun getElections() = retrofitService.getElections()
+    fun getElections() = retrofitService.getElections()
     suspend fun getElectionsJsonStr() = retrofitService.getElectionsJsonStr()
 
     //getVoterInfo
-    suspend fun getVoterInfo(address: String, electionId: Int) = retrofitService.getVoterInfo(address, electionId)
+    fun getVoterInfo(address: String, electionId: Int) = retrofitService.getVoterInfo(address, electionId)
     suspend fun getVoterInfoJsonStr(address: String, electionId: Int) = retrofitService.getVoterInfoJsonStr(address, electionId)
 
     //getRepresentatives
-    suspend fun getRepresentatives(address: String) = retrofitService.getRepresentatives(address)
+    fun getRepresentatives(address: String) = retrofitService.getRepresentatives(address)
     suspend fun getRepresentativesJsonStr(address: String) = retrofitService.getRepresentativesJsonStr(address)
 }
