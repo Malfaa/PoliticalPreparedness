@@ -8,7 +8,6 @@ import com.example.android.politicalpreparedness.Constants
 data class VoterInfo(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    //val data: Date,
     val address: String,
     val locationUrl: String,
     val ballotInformationUrl: String

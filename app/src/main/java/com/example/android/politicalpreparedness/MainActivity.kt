@@ -9,9 +9,3 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 }
-
-
-// TODO: Election -> [ ] Election  [ ] Voterinfo
-// TODO: NETWORK
-// TODO: REPRESENTATIVE
-// TODO: LAYOUT
