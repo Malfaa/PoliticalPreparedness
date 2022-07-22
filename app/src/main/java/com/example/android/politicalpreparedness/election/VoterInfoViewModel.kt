@@ -4,45 +4,89 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.Election
-import com.example.android.politicalpreparedness.network.models.VoterInfo
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
 
-class VoterInfoViewModel(private val repository: ElectionsRepository, private val id: Int, private val division: Division) : ViewModel() { // Ter método pra salvar quando apertar botão, colocar info no fragmento
+// TODO: ALTERAR CÓDIGO
+class VoterInfoViewModel(private val repository: ElectionsRepository): ViewModel()/*BaseViewModel(app) */{
 
-    //Add live data to hold voter info
-    private val _voterInfo = MutableLiveData<VoterInfo>()
-    val voterInfo : LiveData<VoterInfo>
-        get()= _voterInfo
+    companion object {
+        private const val DEFAULT_STATE = "ny"
+    }
 
-    private val getVoterInfo = repository.getElection(id)
+    private val _selectedElection = MutableLiveData<Election>()
+    val selectedElection : LiveData<Election>
+        get() = _selectedElection
 
-    //TODO: Add var and methods to populate voter info
+    val voterInfo = repository.voterInfo
 
+    private val _isElectionSaved = MutableLiveData<Boolean?>()
+    val isElectionSaved : LiveData<Boolean?>
+        get() = _isElectionSaved
 
+//    private val mockData = true
+//    val mockVoterInfo = MutableLiveData<VoterInfo>()
+//
+//    init {
+//        if(mockData) {
+//            val data = VoterInfo(
+//                2000,
+//                "State XYZ",
+//                "",
+//                "")
+//            mockVoterInfo.postValue(data)
+//        }
+//
+//        _isElectionSaved.value = null
+//    }
 
-    //Add var and methods to support loading URLs
+    fun refresh(data: Election) {
+        _selectedElection.value = data
+        refreshIsElectionSaved(data)
+        refreshVoterInfo(data)
+    }
 
-
-
-    //Add var and methods to save and remove elections to local database
-    fun followButton(){
+    private fun refreshIsElectionSaved(data: Election) {
         viewModelScope.launch {
-            _
-            if (getVoterInfo.value?.saved == true){
-                repository.removeElectionFromDB(id)
-            }else{
-                repository.addElectionToDB(it)
+            try {
+                val savedElection = repository.getElection(data.id)
+                _isElectionSaved.postValue(savedElection != null)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
 
-//TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
+    private fun refreshVoterInfo(data: Election) {
+        viewModelScope.launch {
+            try {
+                val state = if(data.division.state.isNotEmpty()) data.division.state else DEFAULT_STATE
+                val address = "${state},${data.division.country}"
 
-/**
- * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
- */
+                repository.refreshVoterInfoQuery(address, data.id)
+                repository.loadVoterInfo(data.id)
 
+            } catch (e: Exception) {
+                e.printStackTrace()
+                //showSnackBarInt.postValue(R.string.fail_no_network_msg)
+                repository.loadVoterInfo(data.id)
+            }
+        }
+    }
+
+    fun onFollowButtonClick() {
+        viewModelScope.launch {
+            _selectedElection.value?.let {
+                if(isElectionSaved.value == true) {
+                    repository.removeElectionFromDB(it)
+                } else {
+                    repository.addElectionToDB(it)
+                }
+                refreshIsElectionSaved(it)
+            }
+        }
+    }
 }
+

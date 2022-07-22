@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.android.politicalpreparedness.Constants
 import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.network.models.VoterInfo
 
 @Dao
 interface ElectionDao {
@@ -20,13 +21,13 @@ interface ElectionDao {
     fun getSavedElections(): LiveData<List<Election>>
 
     @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION} WHERE id = :id")
-    fun getSingle(id:Int): LiveData<Election>
+    fun getSingle(id:Int): VoterInfo
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addElection(election: Election)
 
     @Delete
-    suspend fun deleteElection(election: Int)
+    suspend fun deleteElection(election: Election)
 
 
 

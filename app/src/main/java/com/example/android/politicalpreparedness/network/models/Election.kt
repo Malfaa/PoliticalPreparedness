@@ -13,8 +13,5 @@ data class Election(
         @PrimaryKey val id: Int,
         @ColumnInfo(name = "name")val name: String,
         @ColumnInfo(name = "electionDay")val electionDay: Date,
-        @Embedded(prefix = "division_") @Json(name="ocdDivisionId") val division: Division,
-        @ColumnInfo(name = "saved")val saved: Boolean // FIXME: ideia
+        @Embedded(prefix = "division_") @Json(name="ocdDivisionId") val division: Division
 )  : Parcelable
-
-// TODO: colocar um boolean p/ distinguir se foi salvo ou não talvez

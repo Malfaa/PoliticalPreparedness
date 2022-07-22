@@ -11,4 +11,7 @@
     <dimen name="image_margin">50dp</dimen>
 
     <dimen name="election_dim_list">8dp</dimen>
+
+    <dimen name="voter_info_elements_margin">15dp</dimen>
+    <dimen name="text_election_size">16sp</dimen>
 </resources>
