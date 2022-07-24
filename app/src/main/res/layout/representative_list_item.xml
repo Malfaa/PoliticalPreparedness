@@ -8,8 +8,90 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:paddingBottom="10dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/representativePhoto"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            app:profileImage= "@{representative.official.photoUrl}"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/picture_of_politic"
+            app:layout_constraintBottom_toBottomOf="@+id/party"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/position"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLength="50"
+            android:maxLines="1"
+            app:layout_constraintStart_toEndOf="@+id/representativePhoto"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/election_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxLength="34"
+            app:layout_constraintStart_toStartOf="@+id/position"
+            app:layout_constraintTop_toBottomOf="@+id/position"
+            tools:text="@tools:sample/full_names" />
+
+        <TextView
+            android:id="@+id/party"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:ellipsize="end"
+            android:maxLength="34"
+            android:maxLines="1"
+            app:layout_constraintStart_toStartOf="@+id/election_name"
+            app:layout_constraintTop_toBottomOf="@+id/election_name"
+            tools:text="Republican party" />
+
+        <ImageView
+            android:id="@+id/facebookIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/facebook_icon"
+            android:src="@drawable/ic_facebook"
+            app:layout_constraintBottom_toBottomOf="@+id/twitterIcon"
+            app:layout_constraintEnd_toStartOf="@+id/twitterIcon" />
+
+        <ImageView
+            android:id="@+id/twitterIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/twitter_icon"
+            android:src="@drawable/ic_twitter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/wwwIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/www_icon"
+            android:src="@drawable/ic_www"
+            app:layout_constraintBottom_toBottomOf="@+id/facebookIcon"
+            app:layout_constraintEnd_toStartOf="@+id/facebookIcon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

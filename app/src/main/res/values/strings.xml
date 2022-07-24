@@ -13,4 +13,5 @@
     <string name="tool_election_info">election info</string>
     <string name="tool_ballot">ballot info</string>
     <string name="tool_location">location info</string>
+    <string name="tool_follow">follow election</string>
 </resources>

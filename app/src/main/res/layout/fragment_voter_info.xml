@@ -16,7 +16,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/election_name"
+            android:id="@+id/election_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/gray50"
@@ -35,7 +35,7 @@
             android:text="@{viewModel.selectedElection.electionDay.toString()}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/election_name"
+            app:layout_constraintTop_toBottomOf="@+id/election_title"
             tools:text="01 November 2000" />
 
         <TextView
@@ -50,8 +50,8 @@
             app:layout_constraintTop_toBottomOf="@id/election_date"
             tools:text="@string/tool_election_info" />
 
-        <!-- TODO: Add click binding to open web URL -->
-        <!-- TODO: Add visual styling and content -->
+        <!-- click binding to open web URL -->
+
         <TextView
             android:id="@+id/state_locations"
             android:layout_width="wrap_content"
@@ -59,18 +59,19 @@
             android:layout_marginTop="16dp"
             android:text="@string/tool_location"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:onClick="@{() -> viewModel.stateLocationChange()}"
             android:textColor="@color/colorAccent"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_header" />
 
-        <!-- TODO: Add click binding to open web URL -->
-        <!-- TODO: Add visual styling and content -->
+        <!-- click binding to open web URL -->
         <TextView
             android:id="@+id/state_ballot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/tool_ballot"
+            android:onClick="@{() -> viewModel.stateBallotChange()}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorAccent"
             app:layout_constraintStart_toStartOf="@id/election_date"
@@ -78,7 +79,6 @@
 
 
         <!-- Add button to save election to Room -->
-
         <Button
             android:id="@+id/follow_button"
             android:layout_width="0dp"
@@ -91,7 +91,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="@string/follow_election_text"/>
+            tools:text="@string/tool_follow"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
