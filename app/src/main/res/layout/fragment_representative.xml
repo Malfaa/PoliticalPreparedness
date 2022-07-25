@@ -13,7 +13,7 @@
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        app:layoutDescription="@xml/representatives_fragment_scene">
+        app:layoutDescription="@xml/fragment_scene">
 
         <TextView
             android:id="@+id/search_title"
@@ -26,30 +26,34 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/address_line_1"
+            android:id="@+id/address_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
             android:ems="10"
             android:inputType="textPostalAddress"
             android:hint="@string/address_line_1_text"
             android:autofillHints="@string/address_line_1_text"
-            android:text="@={viewModel.address.line1}"
+            android:text="@{viewModel.address.line1}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_title" />
 
         <EditText
-            android:id="@+id/address_line_2"
+            android:id="@+id/address_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
             android:ems="10"
             android:inputType="textPostalAddress"
             android:hint="@string/address_line_2_text"
             android:autofillHints="@string/address_line_2_text"
-            android:text="@={viewModel.address.line2}"
+            android:text="@{viewModel.address.line2}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/address_line_1" />
+            app:layout_constraintTop_toBottomOf="@id/address_1" />
 
         <EditText
             android:id="@+id/city"
@@ -58,17 +62,20 @@
             android:autofillHints="@string/city_text"
             android:ems="10"
             android:hint="@string/city_text"
+            android:layout_marginStart="@dimen/default_margin"
             android:inputType="textPostalAddress"
+            android:text="@{viewModel.address.city}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:text="@={viewModel.address.city}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/address_line_2" />
+            app:layout_constraintTop_toBottomOf="@+id/address_2" />
 
         <Spinner
             android:id="@+id/state"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:inputType="textPostalAddress"
+            android:layout_marginEnd="@dimen/default_margin"
+
             android:entries="@{viewModel.states}"
             android:selectedItemPosition="@={viewModel.selectedStateIndex}"
             app:layout_constraintBottom_toBottomOf="@id/city"
@@ -81,11 +88,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:autofillHints="@string/zip_text"
+            android:layout_marginStart="@dimen/default_margin"
             android:ems="10"
             android:hint="@string/zip_text"
             android:inputType="textPostalAddress"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:text="@={viewModel.address.zip}"
+            android:text="@{viewModel.address.zip}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/city" />
 
@@ -121,7 +129,7 @@
             android:id="@+id/representatives_recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/default_margin"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

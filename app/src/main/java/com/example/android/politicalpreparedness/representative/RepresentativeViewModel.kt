@@ -22,6 +22,8 @@ class RepresentativeViewModel(private val repository: RepresentativeRepository):
     val states: LiveData<List<String>>
         get() = _states
 
+    val representatives = repository.representatives
+
     val selectedStateIndex = MutableLiveData<Int>()
 
     //create function to fetch representatives from API from a provided address
@@ -35,9 +37,13 @@ class RepresentativeViewModel(private val repository: RepresentativeRepository):
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                showSnackBarInt.postValue(R.string.no_network_or_address_not_found_msg)
+                //showSnackBarInt.postValue(R.string.no_network_or_address_not_found_msg)
             }
         }
+    }
+
+    fun onSearchButtonClick() {
+        refreshRepresentatives()
     }
 
     /**
@@ -61,7 +67,7 @@ class RepresentativeViewModel(private val repository: RepresentativeRepository):
             refreshRepresentatives()
 
         } else {
-            showSnackBarInt.value = R.string.current_location_is_not_us_msg
+            //showSnackBarInt.value = R.string.current_location_is_not_us_msg
         }
     }
 
@@ -69,5 +75,7 @@ class RepresentativeViewModel(private val repository: RepresentativeRepository):
     private fun getSelectedState(stateIndex: Int) : String {
         return states.value!!.toList()[stateIndex]
     }
+
+
 
 }

@@ -3,23 +3,24 @@ package com.example.android.politicalpreparedness.representative
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
 import java.util.Locale
 
 //TODO ALTERAR CÓDIGO
@@ -35,11 +36,11 @@ class DetailFragment : Fragment() {
     //declare ViewModel
     lateinit var viewModel: RepresentativeViewModel
 
-    val adapter = RepresentativeListAdapter()
+    private val adapter = RepresentativeListAdapter()
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         //establish bindings
         FragmentRepresentativeBinding.inflate(inflater,container,false)
@@ -47,25 +48,31 @@ class DetailFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        //TODO: Define and assign Representative adapter
-        binding.
+        //define and assign Representative adapter
+        // populate Representative adapter
+        binding.representativesRecyclerView.adapter = adapter
+        viewModel.representatives.observe(viewLifecycleOwner){
+            representative ->
 
-        //TODO: Populate Representative adapter
+            adapter.submitList(representative?.toMutableList())
+        }
+
+        binding.searchButton.setOnClickListener {
+            hideKeyboard()
+            viewModel.onSearchButtonClick()
+        }
 
 
-        //TODO: Establish button listeners for field and location search
+        //establish button listeners for field and location search
+        binding.locationButton.setOnClickListener { requestLocationPermissions() }
 
-
+        return binding.root
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        //handle location permission result to get location on permission granted
-
+    private fun requestLocationPermissions() {
         if (checkLocationPermissions()) {
-            getLocation()
+            checkDeviceLocationSettingsAndGetLocation()
         } else {
-//            requestLocationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -79,7 +86,6 @@ class DetailFragment : Fragment() {
             true
         } else {
             //request Location permissions
-//            ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -101,6 +107,39 @@ class DetailFragment : Fragment() {
         }
 
         return granted
+    }
+
+    private fun checkDeviceLocationSettingsAndGetLocation(resolve:Boolean = true) {
+
+        val locationRequest = LocationRequest.create().apply {
+            priority = LocationRequest.PRIORITY_LOW_POWER
+        }
+        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+        val settingsClient = LocationServices.getSettingsClient(requireActivity())
+        val locationSettingsResponseTask = settingsClient.checkLocationSettings(builder.build())
+
+        locationSettingsResponseTask.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException && resolve){
+                try {
+                    ActivityCompat.requestPermissions(
+                        requireActivity(),
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        REQUEST_LOCATION_PERMISSION_REQUEST_CODE
+                    )
+
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    sendEx.printStackTrace()
+                }
+            } else {
+                Log.e("Error Location", "Location Required Error")
+            }
+        }
+
+        locationSettingsResponseTask.addOnCompleteListener {
+            if ( it.isSuccessful ) {
+                getLocation()
+            }
+        }
     }
 
     //get location from LocationServices
