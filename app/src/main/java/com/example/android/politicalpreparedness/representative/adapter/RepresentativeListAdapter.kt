@@ -27,19 +27,19 @@ class RepresentativeListAdapter: ListAdapter<Representative, RepresentativeViewH
     }
 }
 
-class RepresentativeViewHolder(val binding: RepresentativeListItemBinding): RecyclerView.ViewHolder(binding.root) {
+class RepresentativeViewHolder(private val binding: RepresentativeListItemBinding): RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Representative) {
         binding.representative = item
         binding.representativePhoto.setImageResource(R.drawable.ic_profile)
 
-        //TODO: Show social links ** Hint: Use provided helper methods
+        //show social links ** Hint: Use provided helper methods
         item.official.channels?.let {
                     showSocialLinks(it)
                 }
-        //TODO: Show www link ** Hint: Use provided helper methods
+        //show www link ** Hint: Use provided helper methods
         item.official.urls?.let {
-            showWWWLinks(it)
+            webLinks(it)
         }
         binding.executePendingBindings()
     }
@@ -62,8 +62,8 @@ class RepresentativeViewHolder(val binding: RepresentativeListItemBinding): Recy
         if (!twitterUrl.isNullOrBlank()) { enableLink(binding.twitterIcon, twitterUrl) }
     }
 
-    private fun showWWWLinks(urls: List<String>) {
-        enableLink(binding.wwwIcon, urls.first())
+    private fun webLinks(urls: List<String>) {
+        enableLink(binding.webIcon, urls.first())
     }
 
     private fun getFacebookUrl(channels: List<Channel>): String? {
@@ -100,9 +100,4 @@ class RepresentativeDiffCallback : DiffUtil.ItemCallback<Representative>() {
     override fun areContentsTheSame(oldItem: Representative, newItem: Representative): Boolean {
         return oldItem == newItem
     }
-}
-
-//RepresentativeListener
-class RepresentativeListener(private val clickListener: (representative: Representative) -> Unit) {
-    fun onClick(representative: Representative) = clickListener(representative)
 }

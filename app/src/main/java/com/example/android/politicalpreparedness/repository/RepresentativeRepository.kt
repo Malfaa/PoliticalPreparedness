@@ -7,6 +7,7 @@ import com.example.android.politicalpreparedness.representative.model.Representa
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+//TODO ALTERAR CÓDIGO
 class RepresentativeRepository(//SHOWS EXCLUSiVeLY FROM THE API
     private val api: CivicsApi
 ) {

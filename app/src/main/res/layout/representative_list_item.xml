@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -10,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
+        android:onClick=""
         android:paddingBottom="10dp"
         android:layout_height="wrap_content">
 
@@ -19,7 +22,7 @@
             android:layout_height="54dp"
             app:profileImage= "@{representative.official.photoUrl}"
             android:layout_marginStart="16dp"
-            android:contentDescription="@string/picture_of_politic"
+            android:contentDescription="@string/politic_icon_description"
             app:layout_constraintBottom_toBottomOf="@+id/party"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/position"
@@ -30,11 +33,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_marginTop="@dimen/default_margin"
             android:ellipsize="end"
             android:maxLength="50"
             android:maxLines="1"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/representativePhoto"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/lorem" />
@@ -67,8 +71,8 @@
             android:id="@+id/facebookIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@string/facebook_icon"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:contentDescription="@string/facebook_icon_description"
             android:src="@drawable/ic_facebook"
             app:layout_constraintBottom_toBottomOf="@+id/twitterIcon"
             app:layout_constraintEnd_toStartOf="@+id/twitterIcon" />
@@ -77,21 +81,23 @@
             android:id="@+id/twitterIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@string/twitter_icon"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:contentDescription="@string/twitter_icon_description"
             android:src="@drawable/ic_twitter"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/wwwIcon"
+            android:id="@+id/webIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@string/www_icon"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:contentDescription="@string/web_icon_description"
             android:src="@drawable/ic_www"
             app:layout_constraintBottom_toBottomOf="@+id/facebookIcon"
-            app:layout_constraintEnd_toStartOf="@+id/facebookIcon" />
+            app:layout_constraintEnd_toStartOf="@+id/facebookIcon"
+            app:layout_constraintTop_toTopOf="@+id/facebookIcon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

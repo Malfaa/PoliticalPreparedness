@@ -7,6 +7,10 @@
     <string name="find_representatives">Find My Representatives</string>
 
     <string name="image_ballot_description">A person voting</string>
+    <string name="politic_icon_description">Politic Image</string>
+    <string name="web_icon_description">Web Icon</string>
+    <string name="twitter_icon_description">Twitter Icon</string>
+    <string name="facebook_icon_description">Facebook Icon</string>
 
     <string name="no_web_browser_found_msg">Web page not found</string>
 
