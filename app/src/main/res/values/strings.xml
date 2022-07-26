@@ -5,6 +5,10 @@
     <string name="upcoming_elect">Upcoming Elections</string>
     <string name="saved_elect">Saved Elections</string>
     <string name="find_representatives">Find My Representatives</string>
+    <string name="election_info_text">Election Information: %s</string>
+
+    <string name="follow_button">Follow Election</string>
+    <string name="unfollow_button">Unfollow Election</string>
 
     <string name="image_ballot_description">A person voting</string>
     <string name="politic_icon_description">Politic Image</string>

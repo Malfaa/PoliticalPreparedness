@@ -9,7 +9,7 @@ import com.example.android.politicalpreparedness.network.models.VoterInfo
 @Dao
 interface ElectionDao {
 
-    @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION} WHERE saved = 0")
+    @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION}")
     fun getUpcomingElections(): LiveData<List<Election>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -17,11 +17,14 @@ interface ElectionDao {
 
 
 
-    @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION} WHERE saved = 1")
+    @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION}")
     fun getSavedElections(): LiveData<List<Election>>
 
     @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION} WHERE id = :id")
-    fun getSingle(id:Int): VoterInfo
+    fun getSingle(id:Int): Election
+
+    @Query("SELECT * FROM ${Constants.TABLE_NAME_VOTER_INFO} WHERE id = :id")
+    fun getSingleVoter(id:Int): VoterInfo // TODO: não sei se uso esse ou não
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addElection(election: Election)

@@ -23,8 +23,7 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import java.util.Locale
 
-//TODO ALTERAR CÓDIGO
-class DetailFragment : Fragment() {
+class RepresentativeFragment : Fragment() {
 
     companion object {
         //add Constant for Location request
@@ -71,7 +70,7 @@ class DetailFragment : Fragment() {
 
     private fun requestLocationPermissions() {
         if (checkLocationPermissions()) {
-            checkDeviceLocationSettingsAndGetLocation()
+            checkSettingsReturnLocation()
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -109,7 +108,7 @@ class DetailFragment : Fragment() {
         return granted
     }
 
-    private fun checkDeviceLocationSettingsAndGetLocation(resolve:Boolean = true) {
+    private fun checkSettingsReturnLocation(resolve:Boolean = true) {
 
         val locationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_LOW_POWER

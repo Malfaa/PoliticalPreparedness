@@ -8,8 +8,8 @@ import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
 
-// TODO: ALTERAR CÓDIGO
-class VoterInfoViewModel(private val repository: ElectionsRepository): ViewModel()/*BaseViewModel(app) */{
+// TODO: ALTERAR CÓDIGO x
+class VoterInfoViewModel(private val repository: ElectionsRepository): ViewModel(){
 
     companion object {
         private const val DEFAULT_STATE = "ny"
@@ -74,7 +74,7 @@ class VoterInfoViewModel(private val repository: ElectionsRepository): ViewModel
                 val address = "${state},${data.division.country}"
 
                 repository.refreshVoterInfoQuery(address, data.id)
-                repository.loadVoterInfo(data.id)
+                repository.loadVoterInfo(data.id) // FIXME: talvez tirar, pq em teoria isso seria o 'cache'
 
             } catch (e: Exception) {
                 e.printStackTrace()

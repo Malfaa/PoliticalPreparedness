@@ -15,8 +15,8 @@ import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import com.google.android.material.snackbar.Snackbar
 
-// TODO: ALTERAR CÓDIGO
-class VoterInfoFragment : Fragment() { //Pegar as infos e atribuir ao layout
+// TODO: ALTERAR CÓDIGO x
+class VoterInfoFragment : Fragment() {
 
     private lateinit var viewModel: VoterInfoViewModel
     private lateinit var binding: FragmentVoterInfoBinding
@@ -53,7 +53,7 @@ class VoterInfoFragment : Fragment() { //Pegar as infos e atribuir ao layout
             if(condition) {
                 val urlStr = viewModel.voterInfo.value?.locationUrl
                 urlStr?.run {
-                    activityUrlIntent(this)
+                    toUrlIntent(this)
                 }
                 viewModel.stateLocationReturn()
             }
@@ -69,7 +69,7 @@ class VoterInfoFragment : Fragment() { //Pegar as infos e atribuir ao layout
             if (condition){
                 val urlStr = viewModel.voterInfo.value?.ballotInformationUrl
                 urlStr?.run {
-                    activityUrlIntent(this)
+                    toUrlIntent(this)
                 }
                 viewModel.stateBallotReturn()
             }
@@ -79,7 +79,7 @@ class VoterInfoFragment : Fragment() { //Pegar as infos e atribuir ao layout
     }
 
 
-    private fun activityUrlIntent(urlStr: String) {
+    private fun toUrlIntent(urlStr: String) {
         val uri: Uri = Uri.parse(urlStr)
         val intent = Intent(Intent.ACTION_VIEW, uri)
 

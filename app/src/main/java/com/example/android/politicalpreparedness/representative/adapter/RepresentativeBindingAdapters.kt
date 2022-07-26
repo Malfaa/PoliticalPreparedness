@@ -1,14 +1,13 @@
 package com.example.android.politicalpreparedness.representative.adapter
 
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Spinner
+import android.widget.*
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.android.politicalpreparedness.R
+import com.example.android.politicalpreparedness.network.models.VoterInfo
 
 @BindingAdapter("profileImage")
 fun fetchImage(view: ImageView, src: String?) {
@@ -41,4 +40,25 @@ fun Spinner.setNewValue(value: String?) {
 
 inline fun <reified T> toTypedAdapter(adapter: ArrayAdapter<*>): ArrayAdapter<T>{
     return adapter as ArrayAdapter<T>
+}
+
+//Election
+@BindingAdapter("electionInfoTitle")
+fun bindElectionInfoTitleText(view: TextView, voterInfo: VoterInfo?) {
+    voterInfo?.run {
+        view.text = view.resources.getString(R.string.election_info_text, state)
+    }
+}
+
+@BindingAdapter("followButtonText")
+fun bindFollowButtonText(button: Button, isElectionSaved: Boolean?) {
+    if(isElectionSaved != null) {
+        if (isElectionSaved) {
+            button.text = button.resources.getString(R.string.unfollow_button)
+        } else {
+            button.text = button.resources.getString(R.string.follow_button)
+        }
+    } else {
+        button.text = ""
+    }
 }

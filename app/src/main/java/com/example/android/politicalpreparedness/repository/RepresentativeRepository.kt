@@ -7,8 +7,7 @@ import com.example.android.politicalpreparedness.representative.model.Representa
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-//TODO ALTERAR CÓDIGO
-class RepresentativeRepository(//SHOWS EXCLUSiVeLY FROM THE API
+class RepresentativeRepository(
     private val api: CivicsApi
 ) {
 
@@ -25,7 +24,7 @@ class RepresentativeRepository(//SHOWS EXCLUSiVeLY FROM THE API
                 office.getRepresentatives(repResponse.officials)
             }
 
-            _representatives.postValue(repList) //as MutableList<Representative>?
+            _representatives.postValue(repList as MutableList<Representative>)
         }
     }
 

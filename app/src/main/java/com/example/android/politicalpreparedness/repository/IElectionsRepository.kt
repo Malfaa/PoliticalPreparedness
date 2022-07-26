@@ -1,6 +1,7 @@
 package com.example.android.politicalpreparedness.repository
 
 import androidx.lifecycle.LiveData
+import com.example.android.politicalpreparedness.database.election.ElectionDao
 import com.example.android.politicalpreparedness.network.models.*
 import kotlinx.coroutines.flow.Flow
 
@@ -10,7 +11,7 @@ interface IElectionsRepository {
 
     fun getAllUpcoming(): LiveData<List<Election>> // ok  retrieve from cache
 
-    fun getElection(id: Int): VoterInfo // ok
+    fun getElection(id: Int): Election // ok
 
     suspend fun insertAll(elections: List<Election>) // ok  insert into cache
 

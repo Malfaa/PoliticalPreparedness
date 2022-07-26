@@ -4,13 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.network.models.Address
-import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import com.example.android.politicalpreparedness.repository.RepresentativeRepository
 import kotlinx.coroutines.launch
 
-//TODO ALTERAR CÓDIGO
 class RepresentativeViewModel(private val repository: RepresentativeRepository): ViewModel() {
 
     //establish live data for representatives and address
@@ -75,7 +72,5 @@ class RepresentativeViewModel(private val repository: RepresentativeRepository):
     private fun getSelectedState(stateIndex: Int) : String {
         return states.value!!.toList()[stateIndex]
     }
-
-
 
 }
