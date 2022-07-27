@@ -16,6 +16,8 @@
     <string name="twitter_icon_description">Twitter Icon</string>
     <string name="facebook_icon_description">Facebook Icon</string>
 
+    <string name="cities_desc">Cities</string>
+
     <string name="representative_search_text">Representative Search</string>
     <string name="address_line_1_text">Address Line 1</string>
     <string name="address_line_2_text">Address Line 2</string>
@@ -31,4 +33,5 @@
     <string name="tool_ballot">ballot info</string>
     <string name="tool_location">location info</string>
     <string name="tool_follow">follow election</string>
+
 </resources>

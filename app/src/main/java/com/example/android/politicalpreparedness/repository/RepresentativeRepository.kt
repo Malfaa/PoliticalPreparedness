@@ -19,7 +19,7 @@ class RepresentativeRepository(
         withContext(Dispatchers.IO) {
             _representatives.postValue(null)
 
-            val repResponse = api.getRepresentatives(address)
+            val repResponse = api.retrofitService.getRepresentatives(address)
             val repList = repResponse.offices.flatMap { office ->
                 office.getRepresentatives(repResponse.officials)
             }

@@ -21,10 +21,9 @@ interface ElectionDao {
     fun getSavedElections(): LiveData<List<Election>>
 
     @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION} WHERE id = :id")
-    fun getSingle(id:Int): Election
+    fun getSingle(id:Int): LiveData<Election>
 
-    @Query("SELECT * FROM ${Constants.TABLE_NAME_VOTER_INFO} WHERE id = :id")
-    fun getSingleVoter(id:Int): VoterInfo // TODO: não sei se uso esse ou não
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addElection(election: Election)
@@ -33,6 +32,11 @@ interface ElectionDao {
     suspend fun deleteElection(election: Election)
 
 
+    @Query("SELECT * FROM ${Constants.TABLE_NAME_VOTER_INFO} WHERE id = :id")
+    suspend fun getInfo(id:Int): VoterInfo
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertInfo(voterInfo: VoterInfo)
 
     @Query("DELETE FROM ${Constants.TABLE_NAME_ELECTION}")
     suspend fun clear()

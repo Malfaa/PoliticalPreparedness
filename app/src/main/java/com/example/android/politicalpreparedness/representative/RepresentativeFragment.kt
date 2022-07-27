@@ -10,18 +10,23 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
+import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.repository.RepresentativeRepository
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import java.util.Locale
+import java.util.*
 
 class RepresentativeFragment : Fragment() {
 
@@ -35,6 +40,8 @@ class RepresentativeFragment : Fragment() {
     //declare ViewModel
     lateinit var viewModel: RepresentativeViewModel
 
+    private lateinit var factory : RepresentativeViewModelFactory
+
     private val adapter = RepresentativeListAdapter()
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -42,10 +49,14 @@ class RepresentativeFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
 
         //establish bindings
-        FragmentRepresentativeBinding.inflate(inflater,container,false)
+        binding = FragmentRepresentativeBinding.inflate(inflater,container,false)
 
-        binding.viewModel = viewModel
+        this.factory = RepresentativeViewModelFactory(RepresentativeRepository(CivicsApi), requireActivity().application)
+        viewModel = ViewModelProvider(this, factory)[RepresentativeViewModel::class.java]
+
+
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
         //define and assign Representative adapter
         // populate Representative adapter

@@ -7,6 +7,7 @@ import com.example.android.politicalpreparedness.Constants
 
 @Entity(tableName = Constants.TABLE_NAME_VOTER_INFO)
 data class VoterInfo(
+    @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Int,
     @ColumnInfo(name = "state")

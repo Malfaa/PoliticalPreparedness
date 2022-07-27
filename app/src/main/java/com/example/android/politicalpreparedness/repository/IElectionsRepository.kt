@@ -11,7 +11,7 @@ interface IElectionsRepository {
 
     fun getAllUpcoming(): LiveData<List<Election>> // ok  retrieve from cache
 
-    fun getElection(id: Int): Election // ok
+    fun getElection(id: Int): LiveData<Election> // ok
 
     suspend fun insertAll(elections: List<Election>) // ok  insert into cache
 
@@ -21,7 +21,7 @@ interface IElectionsRepository {
 
     suspend fun refreshElections() //ok
 
-    suspend fun refreshVoterInfoQuery(address: String, id: Int): VoterInfoResponse
+    suspend fun refreshVoterInfoQuery(address: String, id: Int)
 
     suspend fun loadVoterInfo(id:Int)
 //

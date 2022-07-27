@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<!-- todo essa variável sem comando-->
+
     <data>
         <variable
             name="viewModel"
@@ -33,10 +33,10 @@
             android:layout_marginTop="@dimen/rv_margin"
             android:minHeight="250dp"
             android:padding="@dimen/rv_padding"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header_upcoming_election" />
-<!--        tools:listitem="@layout/fragment_voter_info"-->
 
         <TextView
             android:id="@+id/header_saved_election"
@@ -56,6 +56,7 @@
             android:layout_marginTop="@dimen/rv_margin"
             android:layout_marginBottom="@dimen/rv_margin"
             android:padding="@dimen/rv_padding"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -14,9 +14,12 @@ import kotlinx.coroutines.launch
 
 class ElectionsViewModel( private val repository: ElectionsRepository): ViewModel() {
 
+    init {
+        getUpcomingElections()
+    }
     //upcoming elections
-    private val _upcomingElections = MutableLiveData<Election>()
-    val upcomingElections : LiveData<Election>
+    private val _upcomingElections = MutableLiveData<List<Election>>()
+    val upcomingElections : LiveData<List<Election>>
         get() = _upcomingElections
 
     //saved elections
@@ -34,10 +37,12 @@ class ElectionsViewModel( private val repository: ElectionsRepository): ViewMode
     val navigate: LiveData<Election?>
         get() = _navigate
 
+
     //Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
-    fun getUpcomingElections() = viewModelScope.launch {
+    private fun getUpcomingElections() = viewModelScope.launch {
         try {
             repository.refreshElections()
+            _upcomingElections.value = getSavedElections.value
         }catch (e : Exception) {
             Log.e("ElectionsViewModel", e.toString())
         }

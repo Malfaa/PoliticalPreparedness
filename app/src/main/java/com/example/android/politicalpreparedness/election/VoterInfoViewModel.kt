@@ -74,7 +74,7 @@ class VoterInfoViewModel(private val repository: ElectionsRepository): ViewModel
                 val address = "${state},${data.division.country}"
 
                 repository.refreshVoterInfoQuery(address, data.id)
-                repository.loadVoterInfo(data.id) // FIXME: talvez tirar, pq em teoria isso seria o 'cache'
+                repository.loadVoterInfo(data.id)
 
             } catch (e: Exception) {
                 e.printStackTrace()
