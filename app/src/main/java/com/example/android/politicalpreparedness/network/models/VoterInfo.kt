@@ -11,7 +11,7 @@ data class VoterInfo(
     @ColumnInfo(name = "id")
     val id: Int,
     @ColumnInfo(name = "state")
-    val state: String, //fixme address
+    val state: String,
     @ColumnInfo(name = "location_url")
     val locationUrl: String,
     @ColumnInfo(name = "ballot_url")

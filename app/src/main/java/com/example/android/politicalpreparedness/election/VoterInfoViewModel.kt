@@ -33,22 +33,6 @@ class VoterInfoViewModel(private val repository: ElectionsRepository): ViewModel
     val location : LiveData<Boolean>
         get()=_location
 
-//    private val mockData = true
-//    val mockVoterInfo = MutableLiveData<VoterInfo>()
-//
-//    init {
-//        if(mockData) {
-//            val data = VoterInfo(
-//                2000,
-//                "State XYZ",
-//                "",
-//                "")
-//            mockVoterInfo.postValue(data)
-//        }
-//
-//        _isElectionSaved.value = null
-//    }
-
     fun data(data: Election) {
         _selectedElection.value = data
         refreshIsElectionSaved(data)

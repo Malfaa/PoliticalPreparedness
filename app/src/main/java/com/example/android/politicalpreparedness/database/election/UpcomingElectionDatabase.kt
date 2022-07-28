@@ -14,21 +14,21 @@ import com.example.android.politicalpreparedness.network.models.VoterInfo
 
 @Database(entities = [Election::class, VoterInfo::class], version = 1, exportSchema = false) //alterei
 @TypeConverters(Converters::class)
-abstract class ElectionDatabase: RoomDatabase() {
+abstract class UpcomingElectionDatabase: RoomDatabase() {
 
-    abstract val electionDao: ElectionDao
+    abstract val dao: ElectionDao
 
     companion object {
         @Volatile
-        private var INSTANCE: ElectionDatabase? = null
+        private var INSTANCE: UpcomingElectionDatabase? = null
 
-        fun getInstance(context: Context): ElectionDatabase {
+        fun getInstance(context: Context): UpcomingElectionDatabase {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        ElectionDatabase::class.java,
+                        UpcomingElectionDatabase::class.java,
                         Constants.TABLE_NAME_ELECTION
                     )
                         .fallbackToDestructiveMigration()

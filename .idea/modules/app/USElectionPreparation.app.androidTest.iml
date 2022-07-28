@@ -101,6 +101,7 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6ed202bab938bb70706831f26684fa08/jetified-annotations-13.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.constraintlayout/constraintlayout-solver/2.0.0-rc1/8e963a1952dd86ecccb463c0f8396246e51b2a92/constraintlayout-solver-2.0.0-rc1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ca3d582422b43c1c017bf92fd138b9b9/jetified-converter-moshi-2.7.2.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/deae4c459b52d75942072169a3f6df73/jetified-converter-scalars-2.7.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c36be62ef351c66b0a15ffb753d39325/jetified-retrofit-2.7.2.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9ea932454e5b7b83c91c439a8476e015/jetified-okhttp-3.14.7.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6a59df050bae9ef6e91ba43a09e0ff76/jetified-moshi-adapters-1.9.2.jar</arg>
@@ -204,6 +205,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.constraintlayout:constraintlayout-solver:2.0.0-rc1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.retrofit2:converter-moshi:2.7.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.retrofit2:converter-scalars:2.7.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.retrofit2:retrofit:2.7.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:3.14.7" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.moshi:moshi-adapters:1.9.2" level="project" />

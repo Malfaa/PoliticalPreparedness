@@ -9,21 +9,21 @@ import com.example.android.politicalpreparedness.network.models.VoterInfo
 @Dao
 interface ElectionDao {
 
+    //UPCOMING
+
     @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION}")
-    fun getUpcomingElections(): LiveData<List<Election>>
+    fun getElections(): LiveData<List<Election>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAll(election: List<Election>)
 
 
 
-    @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION}")
-    fun getSavedElections(): LiveData<List<Election>>
+
+    //ELECTIONS
 
     @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION} WHERE id = :id")
     fun getSingle(id:Int): LiveData<Election>
-
-
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addElection(election: Election)
@@ -31,6 +31,13 @@ interface ElectionDao {
     @Delete
     suspend fun deleteElection(election: Election)
 
+    @Query("DELETE FROM ${Constants.TABLE_NAME_ELECTION}")
+    suspend fun clear()
+
+
+
+
+    //VOTERINFO
 
     @Query("SELECT * FROM ${Constants.TABLE_NAME_VOTER_INFO} WHERE id = :id")
     suspend fun getInfo(id:Int): VoterInfo
@@ -38,6 +45,5 @@ interface ElectionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertInfo(voterInfo: VoterInfo)
 
-    @Query("DELETE FROM ${Constants.TABLE_NAME_ELECTION}")
-    suspend fun clear()
+
 }

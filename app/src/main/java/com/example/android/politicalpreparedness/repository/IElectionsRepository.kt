@@ -6,25 +6,22 @@ import com.example.android.politicalpreparedness.network.models.*
 import kotlinx.coroutines.flow.Flow
 
 interface IElectionsRepository {
+    //UPCOMING
+    suspend fun refreshElections()
+    suspend fun insertAll(elections: List<Election>)
 
-    fun getAllSaved(): LiveData<List<Election>> // ok
 
-    fun getAllUpcoming(): LiveData<List<Election>> // ok  retrieve from cache
 
-    fun getElection(id: Int): LiveData<Election> // ok
+    //ELECTIONS
+    fun getElection(id: Int): LiveData<Election>
+    suspend fun addElectionToDB(election: Election)
+    suspend fun removeElectionFromDB(election: Election)
 
-    suspend fun insertAll(elections: List<Election>) // ok  insert into cache
 
-    suspend fun addElectionToDB(election: Election) // ok
 
-    suspend fun removeElectionFromDB(election: Election) // ok
-
-    suspend fun refreshElections() //ok
-
+    //VOTERINFO
     suspend fun refreshVoterInfoQuery(address: String, id: Int)
-
     suspend fun loadVoterInfo(id:Int)
-//
-//    suspend fun refreshRepresentativeInfoByAddress(address: String): Result<RepresentativeResponse>
+
 
 }

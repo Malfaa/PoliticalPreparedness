@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.database.election.ElectionDatabase
+import com.example.android.politicalpreparedness.database.election.UpcomingElectionDatabase
 import com.example.android.politicalpreparedness.database.voterinfo.VoterInfoDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
@@ -31,31 +32,34 @@ class ElectionsFragment: Fragment() {
         binding = FragmentElectionBinding.inflate(inflater, container, false)
 
         val dataSourceElection = ElectionDatabase.getInstance(requireContext())
+        val dataSourceUpcomingElection = UpcomingElectionDatabase.getInstance(requireContext())
         val dataSourceVoterInfo = VoterInfoDatabase.getInstance(requireContext())
-        factory = ElectionsViewModelFactory(ElectionsRepository(dataSourceElection, dataSourceVoterInfo, CivicsApi))
+        factory = ElectionsViewModelFactory(ElectionsRepository(dataSourceElection, dataSourceVoterInfo, dataSourceUpcomingElection, CivicsApi))
         viewModel = ViewModelProvider(this, factory)[ElectionsViewModel::class.java]
 
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        //Upcoming Elections
         val upcomingElections = ElectionListAdapter(ElectionListAdapter.ElectionListener { election ->
             findNavController().navigate(
                 ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election)
             )
         })
-
         binding.upcomingElectionRv.adapter = upcomingElections
-
         viewModel.upcomingElections.observe(viewLifecycleOwner) { elections ->
             upcomingElections.submitList(elections)
         }
 
+
+
+
+        //Saved on Database Elections
         val savedElectionAdapter = ElectionListAdapter(ElectionListAdapter.ElectionListener { election ->
             findNavController().navigate(
                 ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election))
         })
-
         binding.savedElectionRv.adapter = savedElectionAdapter
         viewModel.savedElections.observe(viewLifecycleOwner) { elections ->
             savedElectionAdapter.submitList(elections)
@@ -64,48 +68,8 @@ class ElectionsFragment: Fragment() {
 
         return binding.root
     }
+   //fixme java.lang.IllegalStateException: Could not find method @{() -> clickListener.onClick(election)(View)
+//    in a parent or ancestor Context for android:onClick attribute defined on view class
+//    androidx.constraintlayout.widget.ConstraintLayout
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //refresh adapters when fragment loads
-
-        //viewModel.getUpcomingElections()
-    }
-}/*
-        //link elections to voter info
-        val adapter = ElectionListAdapter(
-            ElectionListAdapter.ElectionListener{
-                viewModel.navigateTo(it)
-            }
-        )
-
-        val adapterSaved = ElectionListAdapter(
-            ElectionListAdapter.ElectionListener {
-                viewModel.navigateTo(it)
-            }
-        )
-
-
-        //initiate recycler adapters
-        binding.upcomingElectionRv.adapter = adapter
-        binding.savedElectionRv.adapter = adapterSaved
-
-        viewModel.navigate.observe(viewLifecycleOwner){
-            election ->
-            election?.let {
-                findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(
-                    it//.id,
-                    //it.division
-                ))
-                viewModel.navigated()
-            }
-        }
-
-        //Populate recycler adapters
-        viewModel.getSavedElections.observe(viewLifecycleOwner){
-            viewModel.savedElections(it)
-        }
-
-        viewModel.getUpcomingElections()
-*/
+}
