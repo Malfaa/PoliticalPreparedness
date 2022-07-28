@@ -25,11 +25,6 @@ class RepresentativeViewModel(private val repository: RepresentativeRepository, 
 
     val selectedStateIndex = MutableLiveData<Int>()
 
-        //REPRESENTATIVE
-//    fixme java.lang.IllegalArgumentException: Could not locate call adapter for class com.example.android.politicalpreparedness.network.models.RepresentativeResponse.
-//    fixme java.lang.IllegalArgumentException: Unable to create call adapter for class com.example.android.politicalpreparedness.network.models.RepresentativeResponse
-//    fixme W/Glide: Failed to find GeneratedAppGlideModule. You should include an annotationProcessor compile dependency on com.github.bumptech.glide:compiler in your application and a @GlideModule annotated AppGlideModule implementation or LibraryGlideModules will be silently ignored
-//      nome candidato, local e lado
     init {
         _address.value = Address("", "","","New York","")
         _states.value = app.resources.getStringArray(R.array.states).toList()

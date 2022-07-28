@@ -13,6 +13,7 @@ import com.example.android.politicalpreparedness.database.election.UpcomingElect
 import com.example.android.politicalpreparedness.database.voterinfo.VoterInfoDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
+import com.example.android.politicalpreparedness.election.adapter.ElectionListener
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 
@@ -39,10 +40,10 @@ class ElectionsFragment: Fragment() {
 
 
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         //Upcoming Elections
-        val upcomingElections = ElectionListAdapter(ElectionListAdapter.ElectionListener { election ->
+        val upcomingElections = ElectionListAdapter(ElectionListener { election ->
             findNavController().navigate(
                 ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election)
             )
@@ -56,7 +57,7 @@ class ElectionsFragment: Fragment() {
 
 
         //Saved on Database Elections
-        val savedElectionAdapter = ElectionListAdapter(ElectionListAdapter.ElectionListener { election ->
+        val savedElectionAdapter = ElectionListAdapter(ElectionListener { election ->
             findNavController().navigate(
                 ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election))
         })
@@ -68,8 +69,4 @@ class ElectionsFragment: Fragment() {
 
         return binding.root
     }
-   //fixme java.lang.IllegalStateException: Could not find method @{() -> clickListener.onClick(election)(View)
-//    in a parent or ancestor Context for android:onClick attribute defined on view class
-//    androidx.constraintlayout.widget.ConstraintLayout
-
 }

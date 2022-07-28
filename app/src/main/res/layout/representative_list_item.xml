@@ -83,6 +83,7 @@
             android:id="@+id/twitterIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginTop="@dimen/margin_for_rep_list_item"
             android:layout_marginEnd="@dimen/default_margin"
             android:contentDescription="@string/twitter_icon_description"
             android:src="@drawable/ic_twitter"

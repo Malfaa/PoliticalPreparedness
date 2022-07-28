@@ -48,10 +48,9 @@ class ElectionListAdapter(private val clickListener: ElectionListener): ListAdap
             return oldItem == newItem
         }
     }
+}
 
-
-    //ElectionListener
-    class ElectionListener(private val clickListener: (Election) -> Unit) {
-        fun onClick(election: Election) = clickListener(election)
-    }
+//ElectionListener
+class ElectionListener(val clickListener: (Election) -> Unit) {
+    fun onClick(election: Election) = clickListener(election)
 }

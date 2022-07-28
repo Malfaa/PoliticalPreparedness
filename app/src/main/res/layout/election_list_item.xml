@@ -6,7 +6,7 @@
     <data>
         <variable
             name="clickListener"
-            type="com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter.ElectionListener" />
+            type="com.example.android.politicalpreparedness.election.adapter.ElectionListener" />
         <variable
             name="election"
             type="com.example.android.politicalpreparedness.network.models.Election" />
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:padding="@dimen/default_padding"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> clickListener.onClick(election)">
+        android:onClick="@{() -> clickListener.onClick(election)}">
 
         <TextView
             android:id="@+id/name"

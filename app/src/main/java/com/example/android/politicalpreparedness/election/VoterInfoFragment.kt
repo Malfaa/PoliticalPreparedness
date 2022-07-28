@@ -4,7 +4,9 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -17,15 +19,13 @@ import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import com.google.android.material.snackbar.Snackbar
 
-// TODO: ALTERAR CÓDIGO x
 class VoterInfoFragment : Fragment() {
 
     private lateinit var viewModel: VoterInfoViewModel
     private lateinit var binding: FragmentVoterInfoBinding
     private lateinit var factory: VoterInfoViewModelFactory
 
-    private val arguments = VoterInfoFragmentArgs.fromBundle(requireArguments())
-
+    private lateinit var arguments: VoterInfoFragmentArgs
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -43,14 +43,8 @@ class VoterInfoFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        arguments = VoterInfoFragmentArgs.fromBundle(requireArguments())
         viewModel.data(arguments.election)
-
-//        binding.stateLocations.setOnClickListener {
-//            val urlStr = viewModel.voterInfo.value?.locationUrl
-//            urlStr?.run {
-//                startActivityUrlIntent(this)
-//            }
-//        }
 
         viewModel.location.observe(viewLifecycleOwner) {
             condition ->
@@ -63,12 +57,9 @@ class VoterInfoFragment : Fragment() {
             }
         }
 
-//        binding.stateBallot.setOnClickListener {
-//            val urlStr = viewModel.voterInfo.value?.ballotInformationUrl
-//            urlStr?.run {
-//                startActivityUrlIntent(this)
-//            }
-//        }
+        // TODO: TUDO TA UNFOLLOW NA VERDSADE TA PQ ELES ESTAO SALVOS ENTÃO TA NORMAL ACHO
+        // fixme arrumar o ballot e as locations não estão abrindo url
+
         viewModel.ballot.observe(viewLifecycleOwner) { condition ->
             if (condition){
                 val urlStr = viewModel.voterInfo.value?.ballotInformationUrl
@@ -88,7 +79,7 @@ class VoterInfoFragment : Fragment() {
         val intent = Intent(Intent.ACTION_VIEW, uri)
 
         try {
-            //Info of package_name is from https://acervolima.com/guias-personalizadas-do-chrome-no-android-com-kotlin/
+            //Info for package_name is from https://acervolima.com/guias-personalizadas-do-chrome-no-android-com-kotlin/
             intent.setPackage("com.android.chrome")
             startActivity(intent)
 

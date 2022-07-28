@@ -22,6 +22,8 @@
             android:background="@color/gray50"
             android:padding="@dimen/default_padding"
             android:singleLine="true"
+            android:backgroundTint="@color/colorPrimaryDark"
+            app:titleTextColor="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:title="@{viewModel.selectedElection.name}"
             tools:title="App Bar Title" />
@@ -44,11 +46,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/voter_info_elements_margin"
             android:textSize="@dimen/text_election_size"
+            android:textStyle="italic"
+            android:text="@string/election_info_text"
             android:textAppearance="?attr/textAppearanceHeadline6"
-            app:electionInfoTitle="@{viewModel.voterInfo}"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            app:layout_constraintTop_toBottomOf="@id/election_date"
-            tools:text="@string/tool_election_info" />
+            app:layout_constraintTop_toBottomOf="@id/election_date" />
 
         <!-- click binding to open web URL -->
 
@@ -56,7 +58,7 @@
             android:id="@+id/state_locations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/default_margin"
             android:text="@string/tool_location"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:onClick="@{() -> viewModel.stateLocationChange()}"
@@ -69,9 +71,9 @@
             android:id="@+id/state_ballot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/tool_ballot"
+            android:layout_marginTop="@dimen/default_margin"
             android:onClick="@{() -> viewModel.stateBallotChange()}"
+            android:text="@string/tool_ballot"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorAccent"
             app:layout_constraintStart_toStartOf="@id/election_date"
