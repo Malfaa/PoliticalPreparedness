@@ -38,8 +38,6 @@ interface CivicsApiService {
     @GET("elections")
     suspend fun getElections(): ElectionResponse
 
-    @GET("elections")
-    suspend fun getElectionsJsonStr(): String
 
     //Voterinfo API Call
     @GET("voterinfo")
@@ -50,13 +48,6 @@ interface CivicsApiService {
         electionId: Int
     ): VoterInfoResponse
 
-    @GET("voterinfo")
-    suspend fun getVoterInfoJsonStr(
-        @Query("address")
-        address: String,
-        @Query("electionId")
-        electionId: Int
-    ): String
 
     //Representatives API Call
     @GET("representatives")
@@ -65,11 +56,6 @@ interface CivicsApiService {
         address: String
     ):RepresentativeResponse
 
-    @GET("representatives")
-    suspend fun getRepresentativesJsonStr(
-        @Query("address")
-        address: String
-    ): String
 }
 
 object CivicsApi {

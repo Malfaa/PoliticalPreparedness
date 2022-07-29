@@ -38,7 +38,6 @@ class ElectionsFragment: Fragment() {
         factory = ElectionsViewModelFactory(ElectionsRepository(dataSourceElection, dataSourceVoterInfo, dataSourceUpcomingElection, CivicsApi))
         viewModel = ViewModelProvider(this, factory)[ElectionsViewModel::class.java]
 
-
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 

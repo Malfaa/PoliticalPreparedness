@@ -8,11 +8,10 @@ import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
 
-// TODO: ALTERAR CÓDIGO x
 class VoterInfoViewModel(private val repository: ElectionsRepository): ViewModel(){
 
     companion object {
-        private const val DEFAULT_STATE = "ny"
+        private const val DEFAULT_STATE = "la"
     }
 
     private val _selectedElection = MutableLiveData<Election>()
@@ -25,11 +24,11 @@ class VoterInfoViewModel(private val repository: ElectionsRepository): ViewModel
     val isElectionSaved : LiveData<Boolean?>
         get() = _isElectionSaved
 
-    private val _ballot = MutableLiveData<Boolean>()
+    private val _ballot = MutableLiveData<Boolean>(false)
     val ballot : LiveData<Boolean>
         get()=_ballot
 
-    private val _location = MutableLiveData<Boolean>()
+    private val _location = MutableLiveData<Boolean>(false)
     val location : LiveData<Boolean>
         get()=_location
 

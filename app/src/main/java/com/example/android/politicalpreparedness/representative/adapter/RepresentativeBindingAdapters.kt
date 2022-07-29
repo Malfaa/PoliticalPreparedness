@@ -46,7 +46,7 @@ inline fun <reified T> toTypedAdapter(adapter: ArrayAdapter<*>): ArrayAdapter<T>
 @BindingAdapter("electionInfoTitle")
 fun bindElectionInfoTitleText(view: TextView, voterInfo: VoterInfo?) {
     voterInfo?.run {
-        view.text = view.resources.getString(R.string.election_info_text, state)
+        view.text = view.resources.getString(R.string.election_info_text_with_var, state)
     }
 }
 

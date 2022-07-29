@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.database.election.ElectionDatabase
 import com.example.android.politicalpreparedness.database.election.UpcomingElectionDatabase
@@ -46,28 +45,38 @@ class VoterInfoFragment : Fragment() {
         arguments = VoterInfoFragmentArgs.fromBundle(requireArguments())
         viewModel.data(arguments.election)
 
-        viewModel.location.observe(viewLifecycleOwner) {
-            condition ->
-            if(condition) {
-                val urlStr = viewModel.voterInfo.value?.locationUrl
-                urlStr?.run {
-                    toUrlIntent(this)
-                }
-                viewModel.stateLocationReturn()
+//        viewModel.location.observe(viewLifecycleOwner) { condition ->
+//            if(condition) {
+//                val urlStr = viewModel.voterInfo.value?.locationUrl
+//                urlStr?.run {
+//                    toUrlIntent(this)
+//                }
+//                viewModel.stateLocationReturn()
+//            }
+//        }
+//
+//        viewModel.ballot.observe(viewLifecycleOwner) { condition ->
+//            if (condition){
+//                val urlStr = viewModel.voterInfo.value?.ballotInformationUrl
+//                urlStr?.run {
+//                    toUrlIntent(this)
+//                }
+//                viewModel.stateBallotReturn()
+//            }
+//        }
+        binding.stateLocations.setOnClickListener {
+            val url = viewModel.voterInfo.value?.locationUrl
+            url?.run {
+                toUrlIntent(this)
             }
+            //viewModel.stateLocationReturn()
         }
-
-        // TODO: TUDO TA UNFOLLOW NA VERDSADE TA PQ ELES ESTAO SALVOS ENTÃO TA NORMAL ACHO
-        // fixme arrumar o ballot e as locations não estão abrindo url
-
-        viewModel.ballot.observe(viewLifecycleOwner) { condition ->
-            if (condition){
-                val urlStr = viewModel.voterInfo.value?.ballotInformationUrl
-                urlStr?.run {
-                    toUrlIntent(this)
-                }
-                viewModel.stateBallotReturn()
+        binding.stateBallot.setOnClickListener {
+            val url = viewModel.voterInfo.value?.ballotInformationUrl
+            url?.run {
+                toUrlIntent(this)
             }
+            //viewModel.stateBallotReturn()
         }
 
         return binding.root
@@ -75,8 +84,7 @@ class VoterInfoFragment : Fragment() {
 
 
     private fun toUrlIntent(urlStr: String) {
-        val uri: Uri = Uri.parse(urlStr)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlStr))
 
         try {
             //Info for package_name is from https://acervolima.com/guias-personalizadas-do-chrome-no-android-com-kotlin/

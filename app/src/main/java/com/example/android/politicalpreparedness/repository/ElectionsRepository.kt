@@ -27,7 +27,6 @@ class ElectionsRepository(
             withContext(Dispatchers.IO) {
                 val electionResponse = api.retrofitService.getElections()
                 upcomingDatabase.dao.addAll(electionResponse.elections)
-
             }
 
         } catch (e: Exception) {
@@ -35,30 +34,16 @@ class ElectionsRepository(
         }
     }
 
-    override suspend fun insertAll(elections: List<Election>) { // saves on cache
-        withContext(Dispatchers.IO) {
-            electionDatabase.electionDao.addAll(elections)
-        }
-    }
-
-
-
-
     //ELECTION
     val savedElections = electionDatabase.electionDao.getElections()
 
-    override fun getElection(id: Int): LiveData<Election> { //fixme talvez aqui de erro, pegar abaixo
-        return electionDatabase.electionDao.getSingle(id)
-    }
-    /*
-
-    suspend fun getSavedElection(id: Int) : Election?{
+    override suspend fun getElection(id: Int): Election {
         val election = withContext(Dispatchers.IO) {
-            return@withContext savedElectionDatabase.get(id)
+            return@withContext electionDatabase.electionDao.getSingle(id)
         }
         return election
     }
-     */
+
 
     override suspend fun addElectionToDB(election: Election) {
         withContext(Dispatchers.IO) {
@@ -116,7 +101,7 @@ class ElectionsRepository(
 
     override suspend fun loadVoterInfo(id:Int) {
         withContext(Dispatchers.IO) {
-            val data = electionDatabase.electionDao.getInfo(id)
+            val data = voterInfoDatabase.dao.getInfo(id)
             data.run {_voterInfo.postValue(this)}
         }
     }

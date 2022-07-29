@@ -61,10 +61,10 @@
             android:layout_marginTop="@dimen/default_margin"
             android:text="@string/tool_location"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:onClick="@{() -> viewModel.stateLocationChange()}"
             android:textColor="@color/colorAccent"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_header" />
+<!--        android:onClick="@{() -> viewModel.stateLocationChange()}"-->
 
         <!-- click binding to open web URL -->
         <TextView
@@ -72,13 +72,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
-            android:onClick="@{() -> viewModel.stateBallotChange()}"
             android:text="@string/tool_ballot"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorAccent"
             app:layout_constraintStart_toStartOf="@id/election_date"
             app:layout_constraintTop_toBottomOf="@id/state_locations" />
-
+<!--            android:onClick="@{() -> viewModel.stateBallotChange()}"   -->
 
         <!-- Add button to save election to Room -->
         <Button

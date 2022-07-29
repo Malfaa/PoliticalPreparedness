@@ -10,8 +10,6 @@ import com.example.android.politicalpreparedness.database.Converters
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfo
 
-//USING AS CACHE
-
 @Database(entities = [Election::class, VoterInfo::class], version = 1, exportSchema = false) //alterei
 @TypeConverters(Converters::class)
 abstract class UpcomingElectionDatabase: RoomDatabase() {
@@ -29,7 +27,7 @@ abstract class UpcomingElectionDatabase: RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         UpcomingElectionDatabase::class.java,
-                        Constants.TABLE_NAME_ELECTION
+                        Constants.TABLE_NAME_UPCOMING_ELECTION
                     )
                         .fallbackToDestructiveMigration()
                         .build()

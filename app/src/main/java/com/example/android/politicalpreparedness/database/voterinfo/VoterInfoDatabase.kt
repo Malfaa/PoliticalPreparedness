@@ -14,7 +14,7 @@ import com.example.android.politicalpreparedness.network.models.VoterInfo
 @Database(entities = [VoterInfo::class, Election::class], version = 1, exportSchema = false) //alterei
 @TypeConverters(Converters::class)
 abstract class VoterInfoDatabase : RoomDatabase() {
-//USING AS NORMAL DB
+
     abstract val dao: ElectionDao
 
     companion object {
@@ -35,7 +35,6 @@ abstract class VoterInfoDatabase : RoomDatabase() {
 
                     INSTANCE = instance
                 }
-
                 return instance
             }
         }

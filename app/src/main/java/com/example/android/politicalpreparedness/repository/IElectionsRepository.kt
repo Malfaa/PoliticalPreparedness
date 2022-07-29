@@ -8,12 +8,10 @@ import kotlinx.coroutines.flow.Flow
 interface IElectionsRepository {
     //UPCOMING
     suspend fun refreshElections()
-    suspend fun insertAll(elections: List<Election>)
-
 
 
     //ELECTIONS
-    fun getElection(id: Int): LiveData<Election>
+    suspend fun getElection(id: Int): Election
     suspend fun addElectionToDB(election: Election)
     suspend fun removeElectionFromDB(election: Election)
 

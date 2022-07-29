@@ -23,7 +23,7 @@ interface ElectionDao {
     //ELECTIONS
 
     @Query("SELECT * FROM ${Constants.TABLE_NAME_ELECTION} WHERE id = :id")
-    fun getSingle(id:Int): LiveData<Election>
+    suspend fun getSingle(id:Int): Election
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addElection(election: Election)
