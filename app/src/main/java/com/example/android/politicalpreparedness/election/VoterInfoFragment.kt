@@ -45,38 +45,18 @@ class VoterInfoFragment : Fragment() {
         arguments = VoterInfoFragmentArgs.fromBundle(requireArguments())
         viewModel.data(arguments.election)
 
-//        viewModel.location.observe(viewLifecycleOwner) { condition ->
-//            if(condition) {
-//                val urlStr = viewModel.voterInfo.value?.locationUrl
-//                urlStr?.run {
-//                    toUrlIntent(this)
-//                }
-//                viewModel.stateLocationReturn()
-//            }
-//        }
-//
-//        viewModel.ballot.observe(viewLifecycleOwner) { condition ->
-//            if (condition){
-//                val urlStr = viewModel.voterInfo.value?.ballotInformationUrl
-//                urlStr?.run {
-//                    toUrlIntent(this)
-//                }
-//                viewModel.stateBallotReturn()
-//            }
-//        }
+
         binding.stateLocations.setOnClickListener {
             val url = viewModel.voterInfo.value?.locationUrl
             url?.run {
                 toUrlIntent(this)
             }
-            //viewModel.stateLocationReturn()
         }
         binding.stateBallot.setOnClickListener {
             val url = viewModel.voterInfo.value?.ballotInformationUrl
             url?.run {
                 toUrlIntent(this)
             }
-            //viewModel.stateBallotReturn()
         }
 
         return binding.root
@@ -85,14 +65,12 @@ class VoterInfoFragment : Fragment() {
 
     private fun toUrlIntent(urlStr: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(urlStr))
-
         try {
             //Info for package_name is from https://acervolima.com/guias-personalizadas-do-chrome-no-android-com-kotlin/
             intent.setPackage("com.android.chrome")
             startActivity(intent)
 
         } catch (e: ActivityNotFoundException) {
-
             try {
                 intent.setPackage(null)
                 startActivity(intent)

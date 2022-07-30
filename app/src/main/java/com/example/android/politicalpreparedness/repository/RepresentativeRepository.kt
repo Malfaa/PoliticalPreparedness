@@ -27,5 +27,4 @@ class RepresentativeRepository(
             _representatives.postValue(repList as MutableList<Representative>)
         }
     }
-
 }

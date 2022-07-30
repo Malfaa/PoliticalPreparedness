@@ -41,7 +41,6 @@ class RepresentativeViewModel(private val repository: RepresentativeRepository, 
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                //showSnackBarInt.postValue(R.string.no_network_or_address_not_found_msg)
             }
         }
     }
@@ -60,8 +59,6 @@ class RepresentativeViewModel(private val repository: RepresentativeRepository, 
             _address.value = address
             refreshRepresentatives()
 
-        } else {
-            //showSnackBarInt.value = R.string.current_location_is_not_us_msg
         }
     }
 

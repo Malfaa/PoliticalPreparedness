@@ -1,9 +1,6 @@
 package com.example.android.politicalpreparedness.repository
 
-import androidx.lifecycle.LiveData
-import com.example.android.politicalpreparedness.database.election.ElectionDao
-import com.example.android.politicalpreparedness.network.models.*
-import kotlinx.coroutines.flow.Flow
+import com.example.android.politicalpreparedness.network.models.Election
 
 interface IElectionsRepository {
     //UPCOMING

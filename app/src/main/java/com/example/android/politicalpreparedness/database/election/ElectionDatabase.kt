@@ -10,11 +10,11 @@ import com.example.android.politicalpreparedness.database.Converters
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfo
 
-@Database(entities = [Election::class, VoterInfo::class], version = 1, exportSchema = false) //alterei
+@Database(entities = [Election::class, VoterInfo::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class ElectionDatabase: RoomDatabase() {
 
-    abstract val electionDao: ElectionDao
+    abstract val dao: ElectionDao
 
     companion object {
         @Volatile

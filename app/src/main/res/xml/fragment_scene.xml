@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<!--//TODO ALTERAR CÓDIGO-->
-    <ConstraintSet>
-        <Constraint android:id="@id/search_title" />
+
+    <ConstraintSet android:id="@+id/start">
         <Constraint android:id="@id/address_1" />
         <Constraint android:id="@id/address_2" />
+        <Constraint android:id="@id/search_title" />
         <Constraint android:id="@id/city" />
         <Constraint android:id="@id/state" />
         <Constraint android:id="@id/zip" />
@@ -13,15 +13,15 @@
         <Constraint android:id="@id/location_button" />
     </ConstraintSet>
 
-    <ConstraintSet>
-        <Constraint
-            android:id="@id/search_title"
-            android:visibility="gone" />
+    <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@id/address_1"
             android:visibility="gone" />
         <Constraint
             android:id="@id/address_2"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@id/search_title"
             android:visibility="gone" />
         <Constraint
             android:id="@id/city"
@@ -42,7 +42,8 @@
 
     <Transition
         app:constraintSetStart="@id/start"
-        app:constraintSetEnd="@id/end">
+        app:constraintSetEnd="@id/end"
+        app:duration="1500">
         <OnSwipe
             app:dragDirection="dragUp"
             app:touchAnchorId="@id/representatives_recycler_view" />

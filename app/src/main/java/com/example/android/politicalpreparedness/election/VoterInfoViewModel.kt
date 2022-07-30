@@ -24,14 +24,6 @@ class VoterInfoViewModel(private val repository: ElectionsRepository): ViewModel
     val isElectionSaved : LiveData<Boolean?>
         get() = _isElectionSaved
 
-    private val _ballot = MutableLiveData<Boolean>(false)
-    val ballot : LiveData<Boolean>
-        get()=_ballot
-
-    private val _location = MutableLiveData<Boolean>(false)
-    val location : LiveData<Boolean>
-        get()=_location
-
     fun data(data: Election) {
         _selectedElection.value = data
         refreshIsElectionSaved(data)
@@ -61,7 +53,6 @@ class VoterInfoViewModel(private val repository: ElectionsRepository): ViewModel
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                //showSnackBarInt.postValue(R.string.fail_no_network_msg)
                 repository.loadVoterInfo(data.id)
             }
         }
@@ -78,20 +69,6 @@ class VoterInfoViewModel(private val repository: ElectionsRepository): ViewModel
                 refreshIsElectionSaved(it)
             }
         }
-    }
-
-    fun stateBallotChange(){
-        _ballot.value = true
-    }
-    fun stateBallotReturn(){
-        _ballot.value = false
-    }
-
-    fun stateLocationChange(){
-        _location.value = true
-    }
-    fun stateLocationReturn(){
-        _location.value = false
     }
 }
 

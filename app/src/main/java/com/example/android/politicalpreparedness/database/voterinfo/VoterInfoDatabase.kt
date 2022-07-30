@@ -11,7 +11,7 @@ import com.example.android.politicalpreparedness.database.election.ElectionDao
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfo
 
-@Database(entities = [VoterInfo::class, Election::class], version = 1, exportSchema = false) //alterei
+@Database(entities = [VoterInfo::class, Election::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class VoterInfoDatabase : RoomDatabase() {
 

@@ -31,8 +31,8 @@ interface ElectionDao {
     @Delete
     suspend fun deleteElection(election: Election)
 
-    @Query("DELETE FROM ${Constants.TABLE_NAME_ELECTION}")
-    suspend fun clear()
+//    @Query("DELETE FROM ${Constants.TABLE_NAME_ELECTION}")
+//    suspend fun clear()
 
 
 

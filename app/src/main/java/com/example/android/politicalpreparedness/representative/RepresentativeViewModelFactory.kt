@@ -1,6 +1,5 @@
 package com.example.android.politicalpreparedness.representative
 
-import android.annotation.SuppressLint
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

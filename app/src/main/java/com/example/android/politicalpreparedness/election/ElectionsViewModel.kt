@@ -10,7 +10,7 @@ import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
 
 
-class ElectionsViewModel( private val repository: ElectionsRepository): ViewModel() {
+class ElectionsViewModel(private val repository: ElectionsRepository): ViewModel() {
 
     init {
         getUpcomingElections()
@@ -31,18 +31,4 @@ class ElectionsViewModel( private val repository: ElectionsRepository): ViewMode
             Log.e("ElectionsViewModel", e.toString())
         }
     }
-
-    //functions to navigate to saved or upcoming election voter info
-    private val _navigate = MutableLiveData<Election?>()
-    val navigate: LiveData<Election?>
-        get() = _navigate
-
-    fun navigateTo(election: Election) {
-        _navigate.value = election
-    }
-
-    fun navigated() {
-        _navigate.value = null
-    }
-
 }

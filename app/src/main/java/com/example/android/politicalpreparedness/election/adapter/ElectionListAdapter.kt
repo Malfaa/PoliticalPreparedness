@@ -18,7 +18,6 @@ class ElectionListAdapter(private val clickListener: ElectionListener): ListAdap
         holder.bind(getItem(position), clickListener)
     }
 
-
     //ElectionViewHolder
     class ElectionViewHolder(private val binding: ElectionListItemBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: Election, clickListener: ElectionListener){

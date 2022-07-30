@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.network.models.VoterInfo
 
-@BindingAdapter("profileImage")
+@BindingAdapter("profileImage") 
 fun fetchImage(view: ImageView, src: String?) {
     src?.let {
         val uri = src.toUri().buildUpon().scheme("https").build()

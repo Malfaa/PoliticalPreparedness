@@ -28,7 +28,6 @@ class RepresentativeListAdapter: ListAdapter<Representative, RepresentativeViewH
 }
 
 class RepresentativeViewHolder(private val binding: RepresentativeListItemBinding): RecyclerView.ViewHolder(binding.root) {
-
     fun bind(item: Representative) {
         binding.representative = item
         binding.representativePhoto.setImageResource(R.drawable.ic_profile)

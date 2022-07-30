@@ -20,9 +20,7 @@ import com.example.android.politicalpreparedness.repository.ElectionsRepository
 class ElectionsFragment: Fragment() {
 
     lateinit var viewModel : ElectionsViewModel
-
     lateinit var binding: FragmentElectionBinding
-
     private lateinit var factory: ElectionsViewModelFactory
 
 

@@ -5,7 +5,6 @@
 
     <!-- Add data binding node for Voter Info ViewModel -->
     <data>
-
         <variable
             name="viewModel"
             type="com.example.android.politicalpreparedness.election.VoterInfoViewModel" />
@@ -20,12 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/gray50"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:padding="@dimen/default_padding"
             android:singleLine="true"
-            android:backgroundTint="@color/colorPrimaryDark"
-            app:titleTextColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:title="@{viewModel.selectedElection.name}"
+            app:titleTextColor="@color/white"
             tools:title="App Bar Title" />
 
         <TextView

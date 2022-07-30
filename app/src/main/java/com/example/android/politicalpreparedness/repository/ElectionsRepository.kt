@@ -22,7 +22,7 @@ class ElectionsRepository(
     //UPCOMING
     val upcomingElections = upcomingDatabase.dao.getElections()
 
-    override suspend fun refreshElections() { //remote Elections Repo
+    override suspend fun refreshElections() {
         try {
             withContext(Dispatchers.IO) {
                 val electionResponse = api.retrofitService.getElections()
@@ -35,11 +35,11 @@ class ElectionsRepository(
     }
 
     //ELECTION
-    val savedElections = electionDatabase.electionDao.getElections()
+    val savedElections = electionDatabase.dao.getElections()
 
     override suspend fun getElection(id: Int): Election {
         val election = withContext(Dispatchers.IO) {
-            return@withContext electionDatabase.electionDao.getSingle(id)
+            return@withContext electionDatabase.dao.getSingle(id)
         }
         return election
     }
@@ -47,13 +47,13 @@ class ElectionsRepository(
 
     override suspend fun addElectionToDB(election: Election) {
         withContext(Dispatchers.IO) {
-            electionDatabase.electionDao.addElection(election)
+            electionDatabase.dao.addElection(election)
         }
     }
 
     override suspend fun removeElectionFromDB(election: Election) {
         withContext(Dispatchers.IO) {
-            electionDatabase.electionDao.deleteElection(election)
+            electionDatabase.dao.deleteElection(election)
         }
     }
 
@@ -66,6 +66,7 @@ class ElectionsRepository(
     val voterInfo: LiveData<VoterInfo>
         get() = _voterInfo
 
+    //This could be directly used via databinding in xml
     private fun convertResponseToVoterModel(response: VoterInfoResponse, id: Int) : VoterInfo? {
         var voterInfo: VoterInfo? = null
         val state = response.state

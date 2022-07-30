@@ -36,12 +36,9 @@ class RepresentativeFragment : Fragment() {
     }
 
     lateinit var binding: FragmentRepresentativeBinding
-
     //declare ViewModel
     lateinit var viewModel: RepresentativeViewModel
-
     private lateinit var factory : RepresentativeViewModelFactory
-
     private val adapter = RepresentativeListAdapter()
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -50,7 +47,6 @@ class RepresentativeFragment : Fragment() {
 
         //establish bindings
         binding = FragmentRepresentativeBinding.inflate(inflater,container,false)
-
         this.factory = RepresentativeViewModelFactory(RepresentativeRepository(CivicsApi), requireActivity().application)
         viewModel = ViewModelProvider(this, factory)[RepresentativeViewModel::class.java]
 
@@ -155,15 +151,12 @@ class RepresentativeFragment : Fragment() {
     //get location from LocationServices
     @SuppressLint("MissingPermission")
     private fun getLocation() {
-
         val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
-
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
 
                 locationResult.let {
-
                     val address = geoCodeLocation(it.lastLocation)
                     viewModel.refreshByCurrentLocation(address)
 

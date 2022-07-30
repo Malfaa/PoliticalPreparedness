@@ -12,5 +12,4 @@ class ElectionsViewModelFactory(val repo: ElectionsRepository): ViewModelProvide
         }
         throw IllegalArgumentException("Viewmodel unknown")
     }
-
 }
