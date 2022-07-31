@@ -15,24 +15,29 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.*
 
-private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
+object CivicsApi {
+    private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
 
-private val moshi = Moshi.Builder()
-    .add(ElectionAdapter())
-    .add(KotlinJsonAdapterFactory())
-    .build()
+    private val moshi = Moshi.Builder()
+        .add(ElectionAdapter())
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(ScalarsConverterFactory.create())
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .client(CivicsHttpClient.getClient())
-    .baseUrl(BASE_URL)
-    .build()
+    private val retrofit = Retrofit.Builder()
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .client(CivicsHttpClient.getClient())
+        .baseUrl(BASE_URL)
+        .build()
 
-/**
- *  Documentation for the Google Civics API Service can be found at https://developers.google.com/civic-information/docs/v2
- */
+    /**
+     *  Documentation for the Google Civics API Service can be found at https://developers.google.com/civic-information/docs/v2
+     */
 
+    val retrofitService: CivicsApiService by lazy {
+        retrofit.create(CivicsApiService::class.java)
+    }
+}
 interface CivicsApiService {
     //Elections API Call
     @GET("elections")
@@ -58,8 +63,3 @@ interface CivicsApiService {
 
 }
 
-object CivicsApi {
-    val retrofitService: CivicsApiService by lazy {
-        retrofit.create(CivicsApiService::class.java)
-    }
-}

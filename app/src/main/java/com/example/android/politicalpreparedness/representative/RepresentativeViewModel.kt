@@ -1,6 +1,7 @@
 package com.example.android.politicalpreparedness.representative
 
 import android.app.Application
+import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,9 +9,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.repository.RepresentativeRepository
+import com.example.android.politicalpreparedness.representative.model.Representative
 import kotlinx.coroutines.launch
 
 class RepresentativeViewModel(private val repository: RepresentativeRepository, app: Application): ViewModel() {
+
 
     //establish live data for representatives and address
     private val _address = MutableLiveData<Address>()

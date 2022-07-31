@@ -8,7 +8,7 @@
         <entry key="app/src/main/res/layout/election_list_items.xml" value="0.29286019666524155" />
         <entry key="app/src/main/res/layout/fragment_election.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_launch.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_representative.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_representative.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_voter_info.xml" value="0.33" />
         <entry key="app/src/main/res/layout/representative_list_item.xml" value="0.33" />
         <entry key="app/src/main/res/menu/voterinfo_menu.xml" value="0.2937152629328773" />
@@ -21,5 +21,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.22" />
+      </ProjectState>
+    </option>
   </component>
 </project>

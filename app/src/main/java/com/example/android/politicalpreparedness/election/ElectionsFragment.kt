@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -19,9 +20,17 @@ import com.example.android.politicalpreparedness.repository.ElectionsRepository
 
 class ElectionsFragment: Fragment() {
 
-    lateinit var viewModel : ElectionsViewModel
+    private val viewModel : ElectionsViewModel by viewModels {
+        ElectionsViewModelFactory(
+            ElectionsRepository(
+                ElectionDatabase.getInstance(requireContext()),
+                VoterInfoDatabase.getInstance(requireContext()),
+                UpcomingElectionDatabase.getInstance(requireContext()),
+                CivicsApi
+            )
+        )
+    }
     lateinit var binding: FragmentElectionBinding
-    private lateinit var factory: ElectionsViewModelFactory
 
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -30,11 +39,6 @@ class ElectionsFragment: Fragment() {
 
         binding = FragmentElectionBinding.inflate(inflater, container, false)
 
-        val dataSourceElection = ElectionDatabase.getInstance(requireContext())
-        val dataSourceUpcomingElection = UpcomingElectionDatabase.getInstance(requireContext())
-        val dataSourceVoterInfo = VoterInfoDatabase.getInstance(requireContext())
-        factory = ElectionsViewModelFactory(ElectionsRepository(dataSourceElection, dataSourceVoterInfo, dataSourceUpcomingElection, CivicsApi))
-        viewModel = ViewModelProvider(this, factory)[ElectionsViewModel::class.java]
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

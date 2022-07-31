@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.database.election.ElectionDatabase
@@ -20,9 +21,17 @@ import com.google.android.material.snackbar.Snackbar
 
 class VoterInfoFragment : Fragment() {
 
-    private lateinit var viewModel: VoterInfoViewModel
+    private val viewModel: VoterInfoViewModel by viewModels{
+        VoterInfoViewModelFactory(
+            ElectionsRepository(
+                ElectionDatabase.getInstance(requireContext()),
+                VoterInfoDatabase.getInstance(requireContext()),
+                UpcomingElectionDatabase.getInstance(requireContext()),
+                CivicsApi
+            )
+        )
+    }
     private lateinit var binding: FragmentVoterInfoBinding
-    private lateinit var factory: VoterInfoViewModelFactory
 
     private lateinit var arguments: VoterInfoFragmentArgs
 
@@ -32,11 +41,6 @@ class VoterInfoFragment : Fragment() {
 
         binding = FragmentVoterInfoBinding.inflate(inflater, container, false)
 
-        val dataSourceElection = ElectionDatabase.getInstance(requireContext())
-        val dataSourceUpcomingElection = UpcomingElectionDatabase.getInstance(requireContext())
-        val dataSourceVoterInfo = VoterInfoDatabase.getInstance(requireContext())
-        factory = VoterInfoViewModelFactory(ElectionsRepository(dataSourceElection, dataSourceVoterInfo, dataSourceUpcomingElection, CivicsApi))
-        viewModel = ViewModelProvider(this, factory)[VoterInfoViewModel::class.java]
 
         //ViewModel values and create ViewModel
         binding.viewModel = viewModel

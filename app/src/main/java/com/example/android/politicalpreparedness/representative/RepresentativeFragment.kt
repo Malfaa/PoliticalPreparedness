@@ -9,6 +9,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.CivicsApi
@@ -33,13 +34,22 @@ class RepresentativeFragment : Fragment() {
     companion object {
         //add Constant for Location request
         private const val REQUEST_LOCATION_PERMISSION_REQUEST_CODE = 1
+
+        private const val REP_POS_KEY = "REP_POS_KEY"
+        private const val MOT_STATE_KEY = "MOT_STATE_KEY"
     }
 
-    lateinit var binding: FragmentRepresentativeBinding
+    private lateinit var binding: FragmentRepresentativeBinding
+
     //declare ViewModel
-    lateinit var viewModel: RepresentativeViewModel
-    private lateinit var factory : RepresentativeViewModelFactory
+    private val viewModel by viewModels<RepresentativeViewModel> {
+        RepresentativeViewModelFactory(RepresentativeRepository(CivicsApi), requireActivity().application)
+    }
+
     private val adapter = RepresentativeListAdapter()
+
+    private var motionState: Bundle? = null
+    private var bundleRecylerViewPosition : Parcelable? = null
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -47,9 +57,6 @@ class RepresentativeFragment : Fragment() {
 
         //establish bindings
         binding = FragmentRepresentativeBinding.inflate(inflater,container,false)
-        this.factory = RepresentativeViewModelFactory(RepresentativeRepository(CivicsApi), requireActivity().application)
-        viewModel = ViewModelProvider(this, factory)[RepresentativeViewModel::class.java]
-
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -58,7 +65,7 @@ class RepresentativeFragment : Fragment() {
         // populate Representative adapter
         binding.representativesRecyclerView.adapter = adapter
         viewModel.representatives.observe(viewLifecycleOwner){
-            representative ->
+                representative ->
 
             adapter.submitList(representative?.toMutableList())
         }
@@ -187,5 +194,33 @@ class RepresentativeFragment : Fragment() {
     private fun hideKeyboard() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (bundleRecylerViewPosition != null){
+            binding.motionLayout.transitionState = motionState
+            binding.representativesRecyclerView.layoutManager?.onRestoreInstanceState(bundleRecylerViewPosition)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        val motionLayoutState = binding.motionLayout.transitionState
+        val repList = binding.representativesRecyclerView.layoutManager?.onSaveInstanceState()
+
+        super.onSaveInstanceState(outState)
+
+        outState.putBundle(MOT_STATE_KEY, motionLayoutState)
+        outState.putParcelable(REP_POS_KEY, repList)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        if (savedInstanceState != null){
+            bundleRecylerViewPosition  = savedInstanceState.getParcelable(REP_POS_KEY)!!
+            motionState = savedInstanceState.getBundle(MOT_STATE_KEY)
+
+        }
     }
 }
