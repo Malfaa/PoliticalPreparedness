@@ -79,6 +79,7 @@ class RepresentativeFragment : Fragment() {
             binding.representativesRecyclerView.layoutManager!!.onRestoreInstanceState(savedInstanceState.getParcelable(REP_RECYCLER_POS))
 
             viewModel.representatives.value = savedInstanceState.getParcelableArrayList(REP_LIST_KEY)
+
         }
 
 
@@ -225,7 +226,10 @@ class RepresentativeFragment : Fragment() {
         outState.putInt(MOTION_STATE_KEY, motionLayoutState) //motionLayout
         outState.putParcelable(REP_SEARCH_KEY, repList) //search
         outState.putParcelable(REP_RECYCLER_POS,recyclerPositionState) //scrollPosition
-        outState.putParcelableArrayList(REP_LIST_KEY, viewModel.representatives.value as ArrayList<out Parcelable>) //list
 
+        when(viewModel.representatives.value){
+            null -> assert(true)
+            else -> outState.putParcelableArrayList(REP_LIST_KEY, viewModel.representatives.value as ArrayList<out Parcelable>) //list
+        }
     }
 }
