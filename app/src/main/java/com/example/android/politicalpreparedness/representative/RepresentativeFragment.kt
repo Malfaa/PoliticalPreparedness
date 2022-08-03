@@ -19,12 +19,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.observe
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.repository.RepresentativeRepository
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
+import com.example.android.politicalpreparedness.representative.model.Representative
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import java.util.*
@@ -35,21 +37,26 @@ class RepresentativeFragment : Fragment() {
         //add Constant for Location request
         private const val REQUEST_LOCATION_PERMISSION_REQUEST_CODE = 1
 
-        private const val REP_POS_KEY = "REP_POS_KEY"
-        private const val MOT_STATE_KEY = "MOT_STATE_KEY"
+        private const val REP_SEARCH_KEY = "REP_SEARCH_KEY"
+
+        const val REP_LIST_KEY = "REP_LIST_KEY"
+
+        private const val REP_RECYCLER_POS = "REP_RECYCLER_POS"
+
+        private const val MOTION_STATE_KEY = "MOT_STATE_KEY"
     }
 
     private lateinit var binding: FragmentRepresentativeBinding
 
     //declare ViewModel
     private val viewModel by viewModels<RepresentativeViewModel> {
-        RepresentativeViewModelFactory(RepresentativeRepository(CivicsApi), requireActivity().application)
+        RepresentativeViewModelFactory(RepresentativeRepository(
+            CivicsApi
+        ), requireActivity().application, SavedStateHandle()
+        )
     }
 
     private val adapter = RepresentativeListAdapter()
-
-    private var motionState: Bundle? = null
-    private var bundleRecylerViewPosition : Parcelable? = null
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -64,11 +71,24 @@ class RepresentativeFragment : Fragment() {
         //define and assign Representative adapter
         // populate Representative adapter
         binding.representativesRecyclerView.adapter = adapter
+
+        if (savedInstanceState != null){
+            binding.motionLayout.transitionToState(savedInstanceState.getInt(MOTION_STATE_KEY)) //certo
+
+            viewModel.savingStance(savedInstanceState.getParcelable(REP_SEARCH_KEY)!!) //certo troquei refreshByCurrentLocation por savingStance
+
+            binding.representativesRecyclerView.layoutManager!!.onRestoreInstanceState(savedInstanceState.getParcelable(REP_RECYCLER_POS))
+
+            viewModel.representatives.value = savedInstanceState.getParcelableArrayList("reps")
+        }
+
         viewModel.representatives.observe(viewLifecycleOwner){
                 representative ->
 
-            adapter.submitList(representative?.toMutableList())
+            adapter.submitList(representative)
         }
+
+
 
         binding.searchButton.setOnClickListener {
             hideKeyboard()
@@ -196,31 +216,47 @@ class RepresentativeFragment : Fragment() {
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (bundleRecylerViewPosition != null){
-            binding.motionLayout.transitionState = motionState
-            binding.representativesRecyclerView.layoutManager?.onRestoreInstanceState(bundleRecylerViewPosition)
-        }
-    }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
-        val motionLayoutState = binding.motionLayout.transitionState
-        val repList = binding.representativesRecyclerView.layoutManager?.onSaveInstanceState()
+        val motionLayoutState = binding.motionLayout.currentState
+        val repList = viewModel.address.value
+        val recyclerPositionState: Parcelable = binding.representativesRecyclerView.layoutManager!!.onSaveInstanceState()!!
 
         super.onSaveInstanceState(outState)
 
-        outState.putBundle(MOT_STATE_KEY, motionLayoutState)
-        outState.putParcelable(REP_POS_KEY, repList)
-    }
+        outState.putInt(MOTION_STATE_KEY, motionLayoutState) //motionLayout
+        outState.putParcelable(REP_SEARCH_KEY, repList) //search
+        outState.putParcelable(REP_RECYCLER_POS,recyclerPositionState) //scrollPosition
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
+        outState.putParcelableArrayList("reps", viewModel.representatives.value as ArrayList<out Parcelable>)
 
-        if (savedInstanceState != null){
-            bundleRecylerViewPosition  = savedInstanceState.getParcelable(REP_POS_KEY)!!
-            motionState = savedInstanceState.getBundle(MOT_STATE_KEY)
-
-        }
     }
 }
+
+
+
+
+//    override fun onResume() {
+//        super.onResume()
+//        if (restoredRepresentativeList != null){
+//            binding.motionLayout.transitionToState(motionState!!)
+//            //binding.representativesRecyclerView.layoutManager?.onRestoreInstanceState(bundleRecylerViewPosition)
+////            viewModel.representatives.value = restoredRepresentativeList as List<Representative>?
+//        }
+//    }
+//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+//        super.onViewStateRestored(savedInstanceState)
+//
+//        if (savedInstanceState != null){
+//            motionState = savedInstanceState.getInt(MOT_STATE_KEY)
+//            binding.motionLayout.transitionToState(motionState!!)
+//            //bundleRecylerViewPosition  = savedInstanceState.getParcelable(REP_POS_KEY)!!
+////            restoredRepresentativeList = savedInstanceState.getParcelable(REP_POS_KEY)
+//            viewModel.refreshByCurrentLocation(savedInstanceState.getParcelable(REP_LIST_KEY)!!)
+//
+//            savedInstanceState.getInt(REP_RECYCLER_POS).let {
+//                binding.representativesRecyclerView.layoutManager!!.scrollToPosition(it+it)
+//            }
+//        }
+//    }

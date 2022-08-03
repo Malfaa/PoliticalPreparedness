@@ -11,9 +11,9 @@ class RepresentativeRepository(
     private val api: CivicsApi
 ) {
 
-    private val _representatives = MutableLiveData<List<Representative>?>()
-    val representatives: LiveData<List<Representative>?>
-        get() = _representatives
+    val _representatives = MutableLiveData<List<Representative>?>()
+//    val representatives: LiveData<List<Representative>?>
+//        get() = _representatives
 
     suspend fun refreshListRep(address: String){
         withContext(Dispatchers.IO) {
@@ -28,3 +28,5 @@ class RepresentativeRepository(
         }
     }
 }
+
+
