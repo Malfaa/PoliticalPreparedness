@@ -26,7 +26,6 @@ import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.repository.RepresentativeRepository
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
-import com.example.android.politicalpreparedness.representative.model.Representative
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import java.util.*
@@ -75,19 +74,19 @@ class RepresentativeFragment : Fragment() {
         if (savedInstanceState != null){
             binding.motionLayout.transitionToState(savedInstanceState.getInt(MOTION_STATE_KEY)) //certo
 
-            viewModel.savingStance(savedInstanceState.getParcelable(REP_SEARCH_KEY)!!) //certo troquei refreshByCurrentLocation por savingStance
+            viewModel.savingStance(savedInstanceState.getParcelable(REP_SEARCH_KEY)!!)
 
             binding.representativesRecyclerView.layoutManager!!.onRestoreInstanceState(savedInstanceState.getParcelable(REP_RECYCLER_POS))
 
-            viewModel.representatives.value = savedInstanceState.getParcelableArrayList("reps")
+            viewModel.representatives.value = savedInstanceState.getParcelableArrayList(REP_LIST_KEY)
         }
+
 
         viewModel.representatives.observe(viewLifecycleOwner){
                 representative ->
 
             adapter.submitList(representative)
         }
-
 
 
         binding.searchButton.setOnClickListener {
@@ -216,8 +215,6 @@ class RepresentativeFragment : Fragment() {
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
     }
 
-
-
     override fun onSaveInstanceState(outState: Bundle) {
         val motionLayoutState = binding.motionLayout.currentState
         val repList = viewModel.address.value
@@ -228,35 +225,7 @@ class RepresentativeFragment : Fragment() {
         outState.putInt(MOTION_STATE_KEY, motionLayoutState) //motionLayout
         outState.putParcelable(REP_SEARCH_KEY, repList) //search
         outState.putParcelable(REP_RECYCLER_POS,recyclerPositionState) //scrollPosition
-
-        outState.putParcelableArrayList("reps", viewModel.representatives.value as ArrayList<out Parcelable>)
+        outState.putParcelableArrayList(REP_LIST_KEY, viewModel.representatives.value as ArrayList<out Parcelable>) //list
 
     }
 }
-
-
-
-
-//    override fun onResume() {
-//        super.onResume()
-//        if (restoredRepresentativeList != null){
-//            binding.motionLayout.transitionToState(motionState!!)
-//            //binding.representativesRecyclerView.layoutManager?.onRestoreInstanceState(bundleRecylerViewPosition)
-////            viewModel.representatives.value = restoredRepresentativeList as List<Representative>?
-//        }
-//    }
-//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-//        super.onViewStateRestored(savedInstanceState)
-//
-//        if (savedInstanceState != null){
-//            motionState = savedInstanceState.getInt(MOT_STATE_KEY)
-//            binding.motionLayout.transitionToState(motionState!!)
-//            //bundleRecylerViewPosition  = savedInstanceState.getParcelable(REP_POS_KEY)!!
-////            restoredRepresentativeList = savedInstanceState.getParcelable(REP_POS_KEY)
-//            viewModel.refreshByCurrentLocation(savedInstanceState.getParcelable(REP_LIST_KEY)!!)
-//
-//            savedInstanceState.getInt(REP_RECYCLER_POS).let {
-//                binding.representativesRecyclerView.layoutManager!!.scrollToPosition(it+it)
-//            }
-//        }
-//    }
