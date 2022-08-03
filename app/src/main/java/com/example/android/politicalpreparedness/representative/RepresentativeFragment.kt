@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
@@ -43,6 +44,8 @@ class RepresentativeFragment : Fragment() {
         private const val REP_RECYCLER_POS = "REP_RECYCLER_POS"
 
         private const val MOTION_STATE_KEY = "MOT_STATE_KEY"
+
+        private const val SPINNER_ITEM_KEY = "SPINNER_ITEM_KEY"
     }
 
     private lateinit var binding: FragmentRepresentativeBinding
@@ -75,6 +78,8 @@ class RepresentativeFragment : Fragment() {
             binding.motionLayout.transitionToState(savedInstanceState.getInt(MOTION_STATE_KEY)) //certo
 
             viewModel.savingStance(savedInstanceState.getParcelable(REP_SEARCH_KEY)!!)
+
+            viewModel.selectedStateIndex.value = savedInstanceState.getInt(SPINNER_ITEM_KEY)
 
             binding.representativesRecyclerView.layoutManager!!.onRestoreInstanceState(savedInstanceState.getParcelable(REP_RECYCLER_POS))
 
@@ -220,12 +225,14 @@ class RepresentativeFragment : Fragment() {
         val motionLayoutState = binding.motionLayout.currentState
         val repList = viewModel.address.value
         val recyclerPositionState: Parcelable = binding.representativesRecyclerView.layoutManager!!.onSaveInstanceState()!!
+        val stateSpinner = viewModel.selectedStateIndex.value
 
         super.onSaveInstanceState(outState)
 
         outState.putInt(MOTION_STATE_KEY, motionLayoutState) //motionLayout
         outState.putParcelable(REP_SEARCH_KEY, repList) //search
         outState.putParcelable(REP_RECYCLER_POS,recyclerPositionState) //scrollPosition
+        outState.putInt(SPINNER_ITEM_KEY, stateSpinner!!) //state spinner
 
         when(viewModel.representatives.value){
             null -> assert(true)
