@@ -16,6 +16,7 @@ It leverages the following components from the Jetpack library:
 * [Data Binding](https://developer.android.com/topic/libraries/data-binding/) with binding adapters
 * [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/) with the SafeArgs plugin for parameter passing between fragments
 
+<img src="https://github.com/Malfaa/PoliticalPreparedness/blob/main/poliprep.gif" width=30% height=30%>
 
 ## Setting up the Repository
 
